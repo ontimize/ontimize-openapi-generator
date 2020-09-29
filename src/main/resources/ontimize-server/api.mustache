@@ -1,0 +1,39 @@
+package {{package}};
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+{{#operations}}
+public interface {{classname}} {
+{{#operation}}
+	/**
+	* {{summary}}
+	* {{notes}}
+	{{#allParams}}
+	* @param {{paramName}}{{#description}} {{description}}{{/description}}{{#required}} (required){{/required}}{{^required}} (optional{{^isContainer}}{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/isContainer}}{{/required}}
+	{{/allParams}}
+	{{#returnType}}
+	* @return {{returnType}}
+	{{/returnType}}
+	{{#isDeprecated}}
+	* @deprecated
+	{{/isDeprecated}}
+	{{#externalDocs}}
+	* {{description}}
+	* @see <a href="{{url}}">{{summary}} Documentation</a>
+	{{/externalDocs}}
+	*/
+	{{#isDeprecated}}
+	@Deprecated
+	{{/isDeprecated}}
+	@RequestMapping(path = "{{path}}", method = RequestMethod.{{httpMethod}}{{#hasConsumes}},
+		consumes = { {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} }{{/hasConsumes}}{{#hasProduces}}, 
+		produces = { {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }{{/hasProduces}})
+	public {{>returnType}} {{operationId}}({{#allParams}}{{>pathParams}}{{>queryParams}}{{>formParams}}{{>bodyParams}}{{#hasMore}}, 
+			{{/hasMore}}{{/allParams}});
+	{{#hasMore}}
+
+	{{/hasMore}}
+{{/operation}}
+}
+{{/operations}}

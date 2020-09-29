@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: QSAllComponents API 
+  version: '1.0'
+  description: "The QSAllComponents API"
+servers:
+  - url: 'http://localhost:8080/qsallcomponents-jee/services/rest/'
+    description: Localhost
+    variables: 
+      port: 
+        default: "8080"
+paths:
+  /api/administration/permissions:
+    $ref: 'api/Administration.yml#/permissions'
+  /api/administration/test:
+    $ref: 'api/Administration.yml#/test'
+
+  /api/branches/plan:
+    $ref: 'api/Branch.yml#/plan'
+
+  /api/bundle:
+    $ref: 'api/Bundle.yml#/default'
+
+  /api/filemanager/queryFiles/{workspaceId}:
+    $ref: 'api/FileManager.yml#/queryfiles'
+  /api/filemanager/getFile/{fileId}:
+    $ref: 'api/FileManager.yml#/getfile'
+  /api/filemanager/getFiles/{workspaceId}:
+    $ref: 'api/FileManager.yml#/getfiles'
+  /api/filemanager/getZipFile/{file}:
+    $ref: 'api/FileManager.yml#/getzipfile'
+  /api/filemanager/insertFile/{workspaceId}:
+    $ref: 'api/FileManager.yml#/insertfile'
+  /api/filemanager/deleteFiles/{workspaceId}:
+    $ref: 'api/FileManager.yml#/deletefiles'
+  /api/filemanager/insertFolder/{workspaceId}/{name}:
+    $ref: 'api/FileManager.yml#/insertfolder'
+  /api/filemanager/fileUpdate:
+    $ref: 'api/FileManager.yml#/fileUpdate'
+  /api/filemanager/createDocument/{name}:
+    $ref: 'api/FileManager.yml#/createdocument'
+
+  /api/customers/customer:
+    $ref: 'api/Customer.yml#/default'
+  /api/customers/customer/insert:
+    $ref: 'api/Customer.yml#/insert'
+  /api/customers/customer/delete:
+    $ref: 'api/Customer.yml#/delete'
+  /api/customers/customer/update:
+    $ref: 'api/Customer.yml#/update'
+  /api/customers/customer/search:
+    $ref: 'api/Customer.yml#/search'
+  /api/customers/customer/advancedsearch:
+    $ref: 'api/Customer.yml#/advancedsearch'
+
+  /api/dummy:
+    $ref: 'api/Dummy.yml#/default'
+  /api/dummy/test:
+    $ref: 'api/Dummy.yml#/test'
+
+  /api/employees/employee:
+    $ref: 'api/Employee.yml#/default'
+  /api/employees/employee/insert:
+    $ref: 'api/Employee.yml#/insert'
+  /api/employees/employee/delete:
+    $ref: 'api/Employee.yml#/delete'
+  /api/employees/employee/update:
+    $ref: 'api/Employee.yml#/update'
+  /api/employees/employee/search:
+    $ref: 'api/Employee.yml#/search'
+  /api/employees/employee/advancedsearch:
+    $ref: 'api/Employee.yml#/advancedsearch'
+
+  /api/movements/movement:
+    $ref: 'api/Movement.yml#/default'
+  /api/movements/movement/insert:
+    $ref: 'api/Movement.yml#/insert'
+  /api/movements/movement/delete:
+    $ref: 'api/Movement.yml#/delete'
+  /api/movements/movement/update:
+    $ref: 'api/Movement.yml#/update'
+  /api/movements/movement/search:
+    $ref: 'api/Movement.yml#/search'
+  /api/movements/movement/advancedsearch:
+    $ref: 'api/Movement.yml#/advancedsearch'
+
+  /api/users/user:
+    $ref: 'api/User.yml#/default'
+  /api/users/user/insert:
+    $ref: 'api/User.yml#/insert'
+  /api/users/user/delete:
+    $ref: 'api/User.yml#/delete'
+  /api/users/user/update:
+    $ref: 'api/User.yml#/update'
+  /api/users/user/search:
+    $ref: 'api/User.yml#/search'
+  /api/users/user/advancedsearch:
+    $ref: 'api/User.yml#/advancedsearch'
+  /api/users/user/login:
+    $ref: 'api/User.yml#/login'
+
+  /api/config:
+    $ref: 'api/Config.yml#/default'
+  /api/config/search:
+    $ref: 'api/Config.yml#/search'
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+
+security:
+  - BasicAuth: []

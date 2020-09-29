@@ -1,0 +1,13 @@
+components:
+  schemas:
+    AdvancedEntityResult:
+      allOf:
+      - $ref: 'EntityResult.yml#/components/schemas/EntityResult'
+      - type: object
+        properties:
+          startRecordIndex:
+            description: Start record index
+            type: integer
+          totalRecordCount:
+            description: Total record count
+            type: integer

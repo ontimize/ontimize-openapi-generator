@@ -1,0 +1,39 @@
+plan:
+  post:
+    tags:
+      - Branch
+    summary: .
+    description: >
+      .
+    parameters: 
+      - in: query
+        name: names
+        description: the names
+        schema:
+          type: array
+          items:
+            type: string
+        required: true
+      - in: query
+        name: data
+        description: the data
+        schema:
+          type: string
+        required: false
+    requestBody:
+      $ref: '../base/MultipartFiles.yml#/components/requestBodies/MultipartFiles'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'

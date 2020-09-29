@@ -1,0 +1,160 @@
+default:
+  get:
+    tags:
+      - Customers
+    summary: Returns a list of customers.
+    description: >
+      This resource represents a list of customers in the system.
+    parameters: 
+      - in: query
+        name: filter
+        description: Filter
+        schema:
+          type: string
+        required: false
+      - in: query
+        name: columns
+        description: Columns
+        schema:
+          type: string
+        required: false
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+insert:
+  post:
+    tags:
+      - Customers
+    summary: Insert an Customer.
+    description: >
+      This resource represents an customer in the system.
+    requestBody:
+      $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+delete:
+  delete:
+    tags:
+      - Customers
+    summary: Delete an Customer.
+    description: >
+      This resource represents an customer in the system.
+    requestBody:
+      $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+update:
+  put:
+    tags:
+      - Customers
+    summary: Update an Customer.
+    description: >
+      This resource represents an customer in the system.
+    requestBody:
+      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+search:
+  post:
+    tags:
+      - Customers
+    summary: Search and returns a list of customers.
+    description: >
+      This resource represents a list of customers in the system.
+    requestBody:
+      $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+advancedsearch:
+  post:
+    tags:
+      - Customers
+    summary: Advanced search and returns a list of customers.
+    description: >
+      This resource represents a list of customers in the system.
+    requestBody:
+      $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/AdvancedEntityResult.yml#/components/schemas/AdvancedEntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'

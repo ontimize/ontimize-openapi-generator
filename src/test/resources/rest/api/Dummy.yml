@@ -1,0 +1,46 @@
+default:
+  get:
+    tags:
+      - Dummy
+    summary: .
+    description: >
+      .
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+test:
+  get:
+    tags:
+      - Dummy
+    summary: .
+    description: >
+      .
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        

@@ -1,0 +1,108 @@
+components:
+  requestBodies:
+    Values:
+      description: Values
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+
+default:
+  post:
+    tags:
+      - Config
+    summary: Insert an Config.
+    description: >
+      This resource represents an config in the system.
+    requestBody:
+      $ref: '#/components/requestBodies/Values'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+  delete:
+    tags:
+      - Config
+    summary: Delete an Config.
+    description: >
+      This resource represents an config in the system.
+    requestBody:
+      $ref: '#/components/requestBodies/Values'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+  put:
+    tags:
+      - Config
+    summary: Update an Config.
+    description: >
+      This resource represents an config in the system.
+    requestBody:
+      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+search:
+  post:
+    tags:
+      - Config
+    summary: Search and returns a list of config.
+    description: >
+      This resource represents a list of config in the system.
+    requestBody:
+      $ref: '#/components/requestBodies/Values'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'

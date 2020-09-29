@@ -1,0 +1,160 @@
+default:
+  get:
+    tags:
+      - Movements
+    summary: Returns a list of movements.
+    description: >
+      This resource represents a list of movements in the system.
+    parameters: 
+      - in: query
+        name: filter
+        description: Filter
+        schema:
+          type: string
+        required: false
+      - in: query
+        name: columns
+        description: Columns
+        schema:
+          type: string
+        required: false
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+insert:
+  post:
+    tags:
+      - Movements
+    summary: Insert an Movement.
+    description: >
+      This resource represents an movement in the system.
+    requestBody:
+      $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+delete:
+  delete:
+    tags:
+      - Movements
+    summary: Delete an Movement.
+    description: >
+      This resource represents an movement in the system.
+    requestBody:
+      $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+update:
+  put:
+    tags:
+      - Movements
+    summary: Update an Movement.
+    description: >
+      This resource represents an movement in the system.
+    requestBody:
+      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+search:
+  post:
+    tags:
+      - Movements
+    summary: Search and returns a list of movements.
+    description: >
+      This resource represents a list of movements in the system.
+    requestBody:
+      $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+advancedsearch:
+  post:
+    tags:
+      - Movements
+    summary: Advanced search and returns a list of movements.
+    description: >
+      This resource represents a list of movements in the system.
+    requestBody:
+      $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/AdvancedEntityResult.yml#/components/schemas/AdvancedEntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'

@@ -1,0 +1,53 @@
+permissions:
+  get:
+    tags:
+      - Administration
+    summary: .
+    description: >
+      .
+    responses:
+      '200':
+        description: OK
+        content:
+          text/plain:
+            schema:
+              type: string
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+test:
+  get:
+    tags:
+      - Administration
+    summary: .
+    description: >
+      .
+    parameters: 
+      - in: query
+        name: who
+        description: who
+        schema:
+          type: string
+        required: false
+        default: 'unknown'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../model/AdministrationTest.yml#/components/schemas/AdministrationTest'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'

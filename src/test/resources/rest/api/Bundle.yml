@@ -1,0 +1,29 @@
+default:
+  get:
+    tags:
+      - Bundle
+    summary: .
+    description: >
+      .
+    parameters: 
+      - in: query
+        name: lang
+        description: the lang
+        schema:
+          type: string
+        required: true
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'

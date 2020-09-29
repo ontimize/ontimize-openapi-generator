@@ -1,0 +1,1 @@
+{{#isFormParam}}@RequestPart(name = {{#isMapContainer}}""{{/isMapContainer}}{{^isMapContainer}}"{{baseName}}"{{/isMapContainer}}, required = {{#required}}true{{/required}}{{^required}}false{{/required}}{{#defaultValue}}, defaultValue={{{defaultValue}}}{{/defaultValue}}) {{>optionalDataType}} {{paramName}}{{/isFormParam}}

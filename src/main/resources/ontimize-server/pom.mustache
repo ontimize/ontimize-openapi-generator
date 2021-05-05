@@ -1,39 +1,47 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+{{#parentArtifactId}}
+	<parent>
+		<groupId>{{parentGroupId}}</groupId>
+		<artifactId>{{parentArtifactId}}</artifactId>
+		<version>{{parentVersion}}</version>
+	</parent>
+{{/parentArtifactId}}
+{{^parentArtifactId}}
 	<groupId>{{groupId}}</groupId>
+{{/parentArtifactId}}
 	<artifactId>{{artifactId}}</artifactId>
 	<packaging>jar</packaging>
-	<name>{{artifactId}}</name>
+	<name>{{groupId}}:{{artifactId}}</name>
+{{^parentArtifactId}}
 	<version>{{artifactVersion}}</version>
-{{#parentOverridden}}
-	<parent>
-		<groupId>{{{parentGroupId}}}</groupId>
-		<artifactId>{{{parentArtifactId}}}</artifactId>
-		<version>{{{parentVersion}}}</version>
-	</parent>
-{{/parentOverridden}}
 	<properties>
 		<java.source.version>1.8</java.source.version>
 		<java.target.version>1.8</java.target.version>
 		<maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
 	</properties>
+{{/parentArtifactId}}
 	<dependencies>
+{{#importArtifactId}}
 		<dependency>
-			<groupId>com.ontimize.jee</groupId>
-			<artifactId>ontimize-jee-server-rest</artifactId>
-			<version>2.1.0</version>
+			<groupId>{{importGroupId}}</groupId>
+			<artifactId>{{importArtifactId}}</artifactId>
+{{^parentArtifactId}}
+			<version>{{importArtifactVersion}}</version>
+{{/parentArtifactId}}
 		</dependency>
+{{/importArtifactId}}
+{{#dependencies}}
 		<dependency>
-			<groupId>com.ontimize.jee.dms</groupId>
-			<artifactId>ontimize-jee-dms-rest</artifactId>
-			<version>2.0.1</version>
+			<groupId>{{groupId}}</groupId>
+			<artifactId>{{artifactId}}</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-annotations</artifactId>
-			<version>1.5.14</version>
-		</dependency>
+{{/dependencies}}
 	</dependencies>
+{{^parentArtifactId}}
 	<build>
 		<plugins>
 			<plugin>
@@ -47,4 +55,5 @@
 			</plugin>
 		</plugins>
 	</build>
+{{/parentArtifactId}}
 </project>

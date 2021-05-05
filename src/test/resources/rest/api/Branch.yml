@@ -1,10 +1,180 @@
-plan:
+default:
+  get:
+    tags:
+      - Branches
+    summary: Returns a list of Branches.
+    description: >
+      This resource represents a list of branches in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+      - $ref: '../base/GetParameter.yml#/components/schemas/FilterParam' 
+      - $ref: '../base/GetParameter.yml#/components/schemas/ColumnsParam' 
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+insert:
   post:
     tags:
-      - Branch
+      - Branches
+    summary: Inserts a Branch.
+    description: >
+      This resource represents a branch in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+    requestBody:
+      $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+delete:
+  delete:
+    tags:
+      - Branches
+    summary: Deletes a Branch.
+    description: >
+      This resource represents a branch in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+    requestBody:
+      $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+update:
+  put:
+    tags:
+      - Branches
+    summary: Updates a Branch.
+    description: >
+      This resource represents a branch in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+    requestBody:
+      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+search:
+  post:
+    tags:
+      - Branches
+    summary: Searchs and returns a list of Branches.
+    description: >
+      This resource represents a list of branches in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+    requestBody:
+      $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+advancedsearch:
+  post:
+    tags:
+      - Branches
+    summary: Performs an advanced search and returns a list of Branches.
+    description: >
+      This resource represents a list of branches in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+    requestBody:
+      $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/AdvancedEntityResult.yml#/components/schemas/AdvancedEntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+plan:
+  post:
+    operationId: plan 
+    tags:
+      - Branches
     summary: .
     description: >
       .
+    x-hasparentpath: true
+    x-throws: java.io.IOException, com.fasterxml.jackson.core.JsonParseException, com.fasterxml.jackson.databind.JsonMappingException;
     parameters: 
       - in: query
         name: names
@@ -37,3 +207,16 @@ plan:
         $ref: '../base/Error.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+
+components:
+  schemas:
+    NameParam:
+      in: path
+      name: name
+      description: Name
+      required: true
+      schema:
+        type: string
+        enum: 
+          - branch

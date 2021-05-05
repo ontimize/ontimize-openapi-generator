@@ -2,9 +2,10 @@ queryfiles:
   post:
     tags:
       - Filemanager
-    summary: Get document files. Only active files/versions by default.
+    summary: Gets the document files. Only active files/versions by default.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: workspaceId
@@ -39,9 +40,10 @@ getfile:
   get:
     tags:
       - Filemanager
-    summary: Get file content.
+    summary: Gets the file content.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: fileId
@@ -73,9 +75,10 @@ getfiles:
   post:
     tags:
       - Filemanager
-    summary: Get document files. Only active files/versions by default.
+    summary: Gets the document files. Only active files/versions by default.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: workspaceId
@@ -105,14 +108,14 @@ getfiles:
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
 
-
 getzipfile:
   get:
     tags:
       - Filemanager
-    summary: Download the zip file provided stored in temporary files folder.
+    summary: Downloads the zip file provided stored in temporary files folder.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: file
@@ -139,14 +142,14 @@ getzipfile:
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
 
-
 insertfile:
   post:
     tags:
       - Filemanager
-    summary: Get document files. Only active files/versions by default.
+    summary: Gets the document files. Only active files/versions by default.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: workspaceId
@@ -155,13 +158,6 @@ insertfile:
           type: integer
           minimum: 1
         required: true
-#      - in: query
-#        name: file
-#        description: the file
-#        schema:
-#          type: string
-#          format: binary
-#        required: true
       - in: query
         name: folderId
         description: the folder identifier
@@ -190,9 +186,10 @@ deletefiles:
   post:
     tags:
       - Filemanager
-    summary: Delete the files provided.
+    summary: Deletes the files provided.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: workspaceId
@@ -216,14 +213,14 @@ deletefiles:
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
 
-
 insertfolder:
   post:
     tags:
       - Filemanager
-    summary: Delete the files provided.
+    summary: Deletes the files provided.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: workspaceId
@@ -258,9 +255,10 @@ fileUpdate:
   post:
     tags:
       - Filemanager
-    summary: Delete the files provided.
+    summary: Deletes the files provided.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     requestBody:
       $ref: '../base/UpdateFileParameter.yml#/components/requestBodies/UpdateFileParameter'
       required: true
@@ -275,15 +273,15 @@ fileUpdate:
         $ref: '../base/Error.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
-
     
 createdocument:
   get:
     tags:
       - Filemanager
-    summary: Create document.
+    summary: Creates a document.
     description: >
       This resource represents a file in the system.
+    x-restcontroller: dmsrestcontroller
     parameters: 
       - in: path
         name: name

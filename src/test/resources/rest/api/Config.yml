@@ -1,21 +1,11 @@
-components:
-  requestBodies:
-    Values:
-      description: Values
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties:
-              type: object
-
 default:
   post:
     tags:
       - Config
-    summary: Insert an Config.
+    summary: Inserts a Configuration.
     description: >
-      This resource represents an config in the system.
+      This resource represents a configuration in the system.
+    x-restcontroller: remoteconfigurationrestcontroller
     requestBody:
       $ref: '#/components/requestBodies/Values'
     responses:
@@ -37,9 +27,10 @@ default:
   delete:
     tags:
       - Config
-    summary: Delete an Config.
+    summary: Deletes a Configuration.
     description: >
-      This resource represents an config in the system.
+      This resource represents a configuration in the system.
+    x-restcontroller: remoteconfigurationrestcontroller
     requestBody:
       $ref: '#/components/requestBodies/Values'
     responses:
@@ -61,9 +52,10 @@ default:
   put:
     tags:
       - Config
-    summary: Update an Config.
+    summary: Updates a Configuration.
     description: >
-      This resource represents an config in the system.
+      This resource represents a configuration in the system.
+    x-restcontroller: remoteconfigurationrestcontroller
     requestBody:
       $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
     responses:
@@ -86,9 +78,10 @@ search:
   post:
     tags:
       - Config
-    summary: Search and returns a list of config.
+    summary: Searchs and returns a list of Configurations.
     description: >
-      This resource represents a list of config in the system.
+      This resource represents a list of configuration in the system.
+    x-restcontroller: remoteconfigurationrestcontroller
     requestBody:
       $ref: '#/components/requestBodies/Values'
     responses:
@@ -106,3 +99,16 @@ search:
         $ref: '../base/Error.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+components:
+  requestBodies:
+    Values:
+      description: Values
+      content:
+        application/json:
+          schema:
+            type: object
+            x-iswildcard: true
+            additionalProperties:
+              type: object
+              x-iswildcard: true

@@ -1,5 +1,6 @@
 default:
   get:
+    operationId: dummyPermission
     tags:
       - Dummy
     summary: .
@@ -23,6 +24,7 @@ default:
 
 test:
   get:
+    operationId: test
     tags:
       - Dummy
     summary: .

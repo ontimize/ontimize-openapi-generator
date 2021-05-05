@@ -2,20 +2,20 @@ components:
   schemas:
     AdvancedQueryParameter:
       allOf:
-      - $ref: 'QueryParameter.yml#/components/schemas/QueryParameter'
-      - type: object
-        properties:
-          pageSize:
-            description: Page Size
-            type: integer
-          offset:
-            description: Offset
-            type: integer
-          orderBy:
-            description: Order By
-            type: array
-            items:
-              $ref: 'SQLOrder.yml#/components/schemas/SQLOrder'
+        - $ref: 'QueryParameter.yml#/components/schemas/QueryParameter'
+        - type: object
+          properties:
+            pageSize:
+              description: Page Size
+              type: integer
+            offset:
+              description: Offset
+              type: integer
+            orderBy:
+              description: Order By
+              type: array
+              items:
+                $ref: 'SQLOrder.yml#/components/schemas/SQLOrder'
 
   requestBodies:
     AdvancedQueryParameter:

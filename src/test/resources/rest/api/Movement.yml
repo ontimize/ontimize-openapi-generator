@@ -2,22 +2,14 @@ default:
   get:
     tags:
       - Movements
-    summary: Returns a list of movements.
+    summary: Returns a list of Movements.
     description: >
       This resource represents a list of movements in the system.
-    parameters: 
-      - in: query
-        name: filter
-        description: Filter
-        schema:
-          type: string
-        required: false
-      - in: query
-        name: columns
-        description: Columns
-        schema:
-          type: string
-        required: false
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+      - $ref: '../base/GetParameter.yml#/components/schemas/FilterParam' 
+      - $ref: '../base/GetParameter.yml#/components/schemas/ColumnsParam' 
     responses:
       '200':
         description: OK
@@ -38,9 +30,12 @@ insert:
   post:
     tags:
       - Movements
-    summary: Insert an Movement.
+    summary: Inserts a Movement.
     description: >
-      This resource represents an movement in the system.
+      This resource represents a movement in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
     responses:
@@ -63,9 +58,12 @@ delete:
   delete:
     tags:
       - Movements
-    summary: Delete an Movement.
+    summary: Deletes a Movement.
     description: >
-      This resource represents an movement in the system.
+      This resource represents a movement in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
     responses:
@@ -88,9 +86,12 @@ update:
   put:
     tags:
       - Movements
-    summary: Update an Movement.
+    summary: Updates a Movement.
     description: >
-      This resource represents an movement in the system.
+      This resource represents a movement in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
     responses:
@@ -113,9 +114,12 @@ search:
   post:
     tags:
       - Movements
-    summary: Search and returns a list of movements.
+    summary: Searchs and returns a list of movements.
     description: >
       This resource represents a list of movements in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
     responses:
@@ -138,9 +142,12 @@ advancedsearch:
   post:
     tags:
       - Movements
-    summary: Advanced search and returns a list of movements.
+    summary: Performs an advanced search and returns a list of movements.
     description: >
       This resource represents a list of movements in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
     responses:
@@ -158,3 +165,15 @@ advancedsearch:
         $ref: '../base/Error.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+components:
+  schemas:
+    NameParam:
+      in: path
+      name: name
+      description: Name
+      required: true
+      schema:
+        type: string
+        enum: 
+          - movement

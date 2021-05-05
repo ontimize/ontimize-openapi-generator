@@ -2,22 +2,14 @@ default:
   get:
     tags:
       - Users
-    summary: Returns a list of users.
+    summary: Returns a list of Users.
     description: >
       This resource represents a list of users in the system.
-    parameters: 
-      - in: query
-        name: filter
-        description: Filter
-        schema:
-          type: string
-        required: false
-      - in: query
-        name: columns
-        description: Columns
-        schema:
-          type: string
-        required: false
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+      - $ref: '../base/GetParameter.yml#/components/schemas/FilterParam'
+      - $ref: '../base/GetParameter.yml#/components/schemas/ColumnsParam'
     responses:
       '200':
         description: OK
@@ -38,9 +30,12 @@ insert:
   post:
     tags:
       - Users
-    summary: Insert an User.
+    summary: Inserts an User.
     description: >
       This resource represents an user in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
     responses:
@@ -63,9 +58,12 @@ delete:
   delete:
     tags:
       - Users
-    summary: Delete an User.
+    summary: Deletes an User.
     description: >
       This resource represents an user in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
     responses:
@@ -88,9 +86,12 @@ update:
   put:
     tags:
       - Users
-    summary: Update an User.
+    summary: Updates an User.
     description: >
       This resource represents an user in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
     responses:
@@ -113,9 +114,12 @@ search:
   post:
     tags:
       - Users
-    summary: Search and returns a list of users.
+    summary: Searches and returns a list of Users.
     description: >
       This resource represents a list of users in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
     responses:
@@ -138,9 +142,12 @@ advancedsearch:
   post:
     tags:
       - Users
-    summary: Advanced search and returns a list of users.
+    summary: Performs an advanced search and returns a list of Users.
     description: >
       This resource represents a list of users in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
     responses:
@@ -161,11 +168,13 @@ advancedsearch:
 
 login:
   post:
+    operationId: login 
     tags:
       - Users
     summary: .
     description: >
       .
+    x-hasparentpath: true
     responses:
       '200':
         description: OK
@@ -177,3 +186,15 @@ login:
         $ref: '../base/Error.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+components:
+  schemas:
+    NameParam:
+      in: path
+      name: name
+      description: Name
+      required: true
+      schema:
+        type: string
+        enum: 
+          - user

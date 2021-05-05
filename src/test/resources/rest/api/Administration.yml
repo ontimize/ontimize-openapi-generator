@@ -1,10 +1,12 @@
 permissions:
   get:
+    operationId: permissions 
     tags:
       - Administration
     summary: .
     description: >
       .
+    x-hasparentpath: true
     responses:
       '200':
         description: OK
@@ -23,19 +25,21 @@ permissions:
 
 test:
   get:
+    operationId: test 
     tags:
       - Administration
     summary: .
     description: >
       .
+    x-hasparentpath: true
     parameters: 
       - in: query
         name: who
         description: who
         schema:
           type: string
+          default: 'unknown'
         required: false
-        default: 'unknown'
     responses:
       '200':
         description: OK

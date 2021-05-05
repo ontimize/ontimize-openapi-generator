@@ -2,22 +2,14 @@ default:
   get:
     tags:
       - Customers
-    summary: Returns a list of customers.
+    summary: Returns a list of Customers.
     description: >
       This resource represents a list of customers in the system.
-    parameters: 
-      - in: query
-        name: filter
-        description: Filter
-        schema:
-          type: string
-        required: false
-      - in: query
-        name: columns
-        description: Columns
-        schema:
-          type: string
-        required: false
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
+      - $ref: '../base/GetParameter.yml#/components/schemas/FilterParam' 
+      - $ref: '../base/GetParameter.yml#/components/schemas/ColumnsParam' 
     responses:
       '200':
         description: OK
@@ -38,9 +30,12 @@ insert:
   post:
     tags:
       - Customers
-    summary: Insert an Customer.
+    summary: Inserts a Customer.
     description: >
-      This resource represents an customer in the system.
+      This resource represents a customer in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
     responses:
@@ -63,9 +58,12 @@ delete:
   delete:
     tags:
       - Customers
-    summary: Delete an Customer.
+    summary: Deletes a Customers.
     description: >
-      This resource represents an customer in the system.
+      This resource represents a customer in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
     responses:
@@ -88,9 +86,12 @@ update:
   put:
     tags:
       - Customers
-    summary: Update an Customer.
+    summary: Updates a Customer.
     description: >
-      This resource represents an customer in the system.
+      This resource represents a customer in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
     responses:
@@ -113,9 +114,12 @@ search:
   post:
     tags:
       - Customers
-    summary: Search and returns a list of customers.
+    summary: Searchs and returns a list of Customers.
     description: >
       This resource represents a list of customers in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
     responses:
@@ -138,9 +142,12 @@ advancedsearch:
   post:
     tags:
       - Customers
-    summary: Advanced search and returns a list of customers.
+    summary: Performs an advanced search and returns a list of Customers.
     description: >
       This resource represents a list of customers in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - $ref: '#/components/schemas/NameParam'
     requestBody:
       $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
     responses:
@@ -158,3 +165,94 @@ advancedsearch:
         $ref: '../base/Error.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+downloadfile:
+  get:
+    tags:
+      - Customers
+    summary: Downloads a file.
+    description: >
+      This resource represents a file in the system.
+    x-restcontroller: oexportrestcontroller
+    parameters: 
+      - in: path
+        name: extension
+        description: File extension
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        description: File Id
+        schema:
+          type: string
+        required: true
+    x-responsebody: true
+    responses:
+      '200':
+        description: OK
+        content:
+          application/octet-stream:
+            headers:
+              Content-Disposition:
+                schema:
+                  type: string
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+export:
+  post:
+    tags:
+      - Customers
+    summary: Exports a list of Customers.
+    description: >
+      This resource represents a list of customers in the system.
+    x-restcontroller: oexportrestcontroller
+    parameters: 
+      - in: path
+        name: name
+        description: File name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: extension
+        description: File extension
+        schema:
+          type: string
+        required: true
+    requestBody:
+      $ref: '../base/ExportParameter.yml#/components/requestBodies/ExportParameter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+      '400':
+        $ref: '../base/Error.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Error.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Error.yml#/components/responses/Unexpected'
+
+components:
+  schemas:
+    NameParam:
+      in: path
+      name: name
+      description: Name
+      required: true
+      schema:
+        type: string
+        enum: 
+          - customer

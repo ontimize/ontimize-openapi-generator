@@ -1,15 +1,20 @@
 components:
   schemas:
-    UpdateParameter:
+    ExportParameter:
       type: object
       properties:
         data:
           description: Data
           type: object
           additionalProperties:
-            type: string
+            type: object
         filter:
           description: Filter
+          type: object
+          additionalProperties:
+            type: object
+        columnnames:
+          description: Column names
           type: object
           additionalProperties:
             type: string
@@ -17,12 +22,11 @@ components:
           description: SQL Types
           type: object
           additionalProperties:
-            type: string
+            type: integer
 
   requestBodies:
-    UpdateParameter:
-      required: true
+    ExportParameter:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateParameter'
+            $ref: '#/components/schemas/ExportParameter'

@@ -10,99 +10,115 @@ servers:
       port: 
         default: "8080"
 paths:
-  /api/administration/permissions:
+  /administration/permissions:
     $ref: 'api/Administration.yml#/permissions'
-  /api/administration/test:
+  /administration/test:
     $ref: 'api/Administration.yml#/test'
 
-  /api/branches/plan:
+  /branches/{name}:
+    $ref: 'api/Branch.yml#/default'
+  /branches/{name}/insert:
+    $ref: 'api/Branch.yml#/insert'
+  /branches/{name}/delete:
+    $ref: 'api/Branch.yml#/delete'
+  /branches/{name}/update:
+    $ref: 'api/Branch.yml#/update'
+  /branches/{name}/search:
+    $ref: 'api/Branch.yml#/search'
+  /branches/{name}/advancedsearch:
+    $ref: 'api/Branch.yml#/advancedsearch'
+  /branches/plan:
     $ref: 'api/Branch.yml#/plan'
 
-  /api/bundle:
+  /bundle:
     $ref: 'api/Bundle.yml#/default'
 
-  /api/filemanager/queryFiles/{workspaceId}:
-    $ref: 'api/FileManager.yml#/queryfiles'
-  /api/filemanager/getFile/{fileId}:
-    $ref: 'api/FileManager.yml#/getfile'
-  /api/filemanager/getFiles/{workspaceId}:
-    $ref: 'api/FileManager.yml#/getfiles'
-  /api/filemanager/getZipFile/{file}:
-    $ref: 'api/FileManager.yml#/getzipfile'
-  /api/filemanager/insertFile/{workspaceId}:
-    $ref: 'api/FileManager.yml#/insertfile'
-  /api/filemanager/deleteFiles/{workspaceId}:
-    $ref: 'api/FileManager.yml#/deletefiles'
-  /api/filemanager/insertFolder/{workspaceId}/{name}:
-    $ref: 'api/FileManager.yml#/insertfolder'
-  /api/filemanager/fileUpdate:
-    $ref: 'api/FileManager.yml#/fileUpdate'
-  /api/filemanager/createDocument/{name}:
-    $ref: 'api/FileManager.yml#/createdocument'
+  /config:
+    $ref: 'api/Config.yml#/default'
+  /config/search:
+    $ref: 'api/Config.yml#/search'
 
-  /api/customers/customer:
+  /customers/{name}:
     $ref: 'api/Customer.yml#/default'
-  /api/customers/customer/insert:
+  /customers/{name}/insert:
     $ref: 'api/Customer.yml#/insert'
-  /api/customers/customer/delete:
+  /customers/{name}/delete:
     $ref: 'api/Customer.yml#/delete'
-  /api/customers/customer/update:
+  /customers/{name}/update:
     $ref: 'api/Customer.yml#/update'
-  /api/customers/customer/search:
+  /customers/{name}/search:
     $ref: 'api/Customer.yml#/search'
-  /api/customers/customer/advancedsearch:
+  /customers/{name}/advancedsearch:
     $ref: 'api/Customer.yml#/advancedsearch'
+  /customers/{extension}/{id}:
+    $ref: 'api/Customer.yml#/downloadfile'
+  /customers/{name}/{extension}:
+    $ref: 'api/Customer.yml#/export'
 
-  /api/dummy:
+  /dummy:
     $ref: 'api/Dummy.yml#/default'
-  /api/dummy/test:
+  /dummy/test:
     $ref: 'api/Dummy.yml#/test'
 
-  /api/employees/employee:
+  /employees/{name}:
     $ref: 'api/Employee.yml#/default'
-  /api/employees/employee/insert:
+  /employees/{name}/insert:
     $ref: 'api/Employee.yml#/insert'
-  /api/employees/employee/delete:
+  /employees/{name}/delete:
     $ref: 'api/Employee.yml#/delete'
-  /api/employees/employee/update:
+  /employees/{name}/update:
     $ref: 'api/Employee.yml#/update'
-  /api/employees/employee/search:
+  /employees/{name}/search:
     $ref: 'api/Employee.yml#/search'
-  /api/employees/employee/advancedsearch:
+  /employees/{name}/advancedsearch:
     $ref: 'api/Employee.yml#/advancedsearch'
 
-  /api/movements/movement:
+  /filemanager/queryFiles/{workspaceId}:
+    $ref: 'api/FileManager.yml#/queryfiles'
+  /filemanager/getFile/{fileId}:
+    $ref: 'api/FileManager.yml#/getfile'
+  /filemanager/getFiles/{workspaceId}:
+    $ref: 'api/FileManager.yml#/getfiles'
+  /filemanager/getZipFile/{file}:
+    $ref: 'api/FileManager.yml#/getzipfile'
+  /filemanager/insertFile/{workspaceId}:
+    $ref: 'api/FileManager.yml#/insertfile'
+  /filemanager/deleteFiles/{workspaceId}:
+    $ref: 'api/FileManager.yml#/deletefiles'
+  /filemanager/insertFolder/{workspaceId}/{name}:
+    $ref: 'api/FileManager.yml#/insertfolder'
+  /filemanager/fileUpdate:
+    $ref: 'api/FileManager.yml#/fileUpdate'
+  /filemanager/createDocument/{name}:
+    $ref: 'api/FileManager.yml#/createdocument'
+
+  /movements/{name}:
     $ref: 'api/Movement.yml#/default'
-  /api/movements/movement/insert:
+  /movements/{name}/insert:
     $ref: 'api/Movement.yml#/insert'
-  /api/movements/movement/delete:
+  /movements/{name}/delete:
     $ref: 'api/Movement.yml#/delete'
-  /api/movements/movement/update:
+  /movements/{name}/update:
     $ref: 'api/Movement.yml#/update'
-  /api/movements/movement/search:
+  /movements/{name}/search:
     $ref: 'api/Movement.yml#/search'
-  /api/movements/movement/advancedsearch:
+  /movements/{name}/advancedsearch:
     $ref: 'api/Movement.yml#/advancedsearch'
 
-  /api/users/user:
+  /users/{name}:
     $ref: 'api/User.yml#/default'
-  /api/users/user/insert:
+  /users/{name}/insert:
     $ref: 'api/User.yml#/insert'
-  /api/users/user/delete:
+  /users/{name}/delete:
     $ref: 'api/User.yml#/delete'
-  /api/users/user/update:
+  /users/{name}/update:
     $ref: 'api/User.yml#/update'
-  /api/users/user/search:
+  /users/{name}/search:
     $ref: 'api/User.yml#/search'
-  /api/users/user/advancedsearch:
+  /users/{name}/advancedsearch:
     $ref: 'api/User.yml#/advancedsearch'
-  /api/users/user/login:
+  /users/login:
     $ref: 'api/User.yml#/login'
-
-  /api/config:
-    $ref: 'api/Config.yml#/default'
-  /api/config/search:
-    $ref: 'api/Config.yml#/search'
 
 components:
   securitySchemes:

@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openapitools.codegen.CliOption;
+import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.CodegenParameter;
 import org.openapitools.codegen.CodegenType;
@@ -24,17 +26,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.jknack.handlebars.internal.antlr.misc.MultiMap;
+import com.github.jknack.handlebars.internal.lang3.ArrayUtils;
 
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.parser.util.SchemaTypeUtil;
 
 public class ServerCodegen extends AbstractJavaCodegen {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerCodegen.class);
-	
-	// source folder where to write the files
+	private static final String DEPENDENCIES = "dependencies";
+
+	private static final String X_BODY_NAME = "x-codegen-request-body-name";
+	private static final String X_THROWS = "x-throws";
+	private static final String X_HAS_PARENT_PATH = "x-hasparentpath";
+	private static final String X_REST_CONTROLLER = "x-restcontroller";
+	private static final String X_IS_WILDCARD = "x-iswildcard";
+	private static final String X_SUPER = "x-super";
+	private static final String X_EXTENDS = "x-extends";
+
 	protected String apiVersion = "1.0.0";
 	protected Map<String, Object> dependencies = new HashMap<>();
 
@@ -68,7 +80,7 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		return "Generates a Ontimize server library.";
 	}
 
-    public ServerCodegen() {
+	public ServerCodegen() {
 		super();
 
 		this.fullJavaUtil = true;
@@ -139,127 +151,129 @@ public class ServerCodegen extends AbstractJavaCodegen {
 				"",  // the destination folder, relative `outputFolder`
 				"pom.xml")  // the output file
 				);
+
+		this.cliOptions.add(new CliOption(DEPENDENCIES, "Additional dependencies for pom.xml"));
 	}
 
-    @Override
-    public void addOperationToGroup(String tag, String resourcePath, Operation operation, CodegenOperation
-            co, Map<String, List<CodegenOperation>> operations) {
-        List<CodegenOperation> opList = operations.get(tag);
-        if (opList == null) {
-            opList = new ArrayList<CodegenOperation>();
-            operations.put(tag, opList);
-        }
-        co.operationIdLowerCase = co.operationId.toLowerCase(Locale.ROOT);
-        co.operationIdCamelCase = camelize(co.operationId);
-        co.operationIdSnakeCase = underscore(co.operationId);
+	@Override
+	public void addOperationToGroup(String tag, String resourcePath, Operation operation, CodegenOperation
+			co, Map<String, List<CodegenOperation>> operations) {
+		List<CodegenOperation> opList = operations.get(tag);
+		if (opList == null) {
+			opList = new ArrayList<CodegenOperation>();
+			operations.put(tag, opList);
+		}
+		co.operationIdLowerCase = co.operationId.toLowerCase(Locale.ROOT);
+		co.operationIdCamelCase = camelize(co.operationId);
+		co.operationIdSnakeCase = underscore(co.operationId);
 
-        opList.add(co);
-        co.baseName = tag;
+		opList.add(co);
+		co.baseName = tag;
 
-        if (this.searchExtension(co.vendorExtensions, "x-hasparentpath", true)) {
-			String path = "/" + tag.toLowerCase() + "/"; 
+		if (this.searchItemValue(co.vendorExtensions, X_HAS_PARENT_PATH, true)) {
+			String path = "/" + tag.toLowerCase() + "/";
 			int pos = co.path.indexOf(path);
-			
+
 			if (pos >= 0) {
 				co.path = co.path.substring(pos + path.length() - 1);
 			}
 		}
-    }
+	}
 
-    @Override
-    public CodegenOperation fromOperation(String path, String httpMethod, Operation operation, List<Server> servers) {
-        Object extension = this.getExtension(operation.getExtensions(), "x-restcontroller");
+	@Override
+	public CodegenOperation fromOperation(String path, String httpMethod, Operation operation, List<Server> servers) {
+		Object extension = this.getItemValue(operation.getExtensions(), X_REST_CONTROLLER);
 
-        if (extension != null) {
-        	java.util.Map<String, Object> extensions = operation.getExtensions();
+		if (extension != null) {
+			java.util.Map<String, Object> extensions = operation.getExtensions();
 
-        	if (extension.equals("orestcontroller")) {
-        		this.addDependency("com.ontimize.jee", "ontimize-jee-server-rest");
+			if (extension.equals("orestcontroller")) {
+				this.addDependency("com.ontimize.jee", "ontimize-jee-server-rest");
 
-        		if (path.endsWith("/{name}")) {
-        			operation.setOperationId("query");
-        		} else if (path.endsWith("/{name}/search")) {
-        			operation.setOperationId("query");
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "queryParameter");
-	   		        this.addExtension(extensions, "x-throws", "Exception");
-        		} else if (path.endsWith("/{name}/advancedsearch")) {
-        			operation.setOperationId("query");
-        			this.addExtension(extensions, "x-codegen-request-body-name", "queryParameter");
-	   		        this.addExtension(extensions, "x-throws", "Exception");
-        		} else if (path.endsWith("/{name}/delete")) {
-        			operation.setOperationId("delete");
-        			this.addExtension(extensions, "x-codegen-request-body-name", "deleteParameter");
-        		} else if (path.endsWith("/{name}/insert")) {
-        			operation.setOperationId("insert");
-        			this.addExtension(extensions, "x-codegen-request-body-name", "insertParameter");
-        		} else if (path.endsWith("/{name}/update")) {
-        			operation.setOperationId("update");
-        			this.addExtension(extensions, "x-codegen-request-body-name", "updateParameter");
-        		}
-        	} else if (extension.equals("dmsrestcontroller")) {
-        		this.addDependency("com.ontimize.jee.dms", "ontimize-jee-dms-rest");
+				if (path.endsWith("/{name}")) {
+					operation.setOperationId("query");
+				} else if (path.endsWith("/{name}/search")) {
+					operation.setOperationId("query");
+					this.addItem(extensions, X_BODY_NAME, "queryParameter");
+					this.addItem(extensions, X_THROWS, "Exception");
+				} else if (path.endsWith("/{name}/advancedsearch")) {
+					operation.setOperationId("query");
+					this.addItem(extensions, X_BODY_NAME, "queryParameter");
+					this.addItem(extensions, X_THROWS, "Exception");
+				} else if (path.endsWith("/{name}/delete")) {
+					operation.setOperationId("delete");
+					this.addItem(extensions, X_BODY_NAME, "deleteParameter");
+				} else if (path.endsWith("/{name}/insert")) {
+					operation.setOperationId("insert");
+					this.addItem(extensions, X_BODY_NAME, "insertParameter");
+				} else if (path.endsWith("/{name}/update")) {
+					operation.setOperationId("update");
+					this.addItem(extensions, X_BODY_NAME, "updateParameter");
+				}
+			} else if (extension.equals("dmsrestcontroller")) {
+				this.addDependency("com.ontimize.jee.dms", "ontimize-jee-dms-rest");
 
-        		if (path.endsWith("/queryFiles/{workspaceId}")) {
-        			operation.setOperationId("documentGetFiles");
-        			this.addExtension(extensions, "x-codegen-request-body-name", "queryParameter");
-        		} else if (path.endsWith("/getFile/{fileId}")) {
-        			operation.setOperationId("fileGetContent");
-        			this.addInternalParam(operation, "response", "HttpServletResponse");
-        			this.addDependency("javax.servlet", "javax.servlet-api");
-        		} else if (path.endsWith("/getFiles/{workspaceId}")) {
-        			operation.setOperationId("fileGetContent");
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "file");
-        		} else if (path.endsWith("/getZipFile/{file}")) {
-        			operation.setOperationId("fileGetZip");	
-        			this.addInternalParam(operation, "response", "HttpServletResponse");
-        			this.addDependency("javax.servlet", "javax.servlet-api");
-        		} else if (path.endsWith("/insertFile/{workspaceId}")) {
-        			operation.setOperationId("fileInsert");	
-        		} else if (path.endsWith("/deleteFiles/{workspaceId}")) {
-        			operation.setOperationId("delete");	
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "deleteParameter");
-					this.addExtension(extensions, "x-throws", "com.ontimize.jee.common.exceptions.DmsException");
-        		} else if (path.endsWith("/insertFolder/{workspaceId}/{name}")) {
-        			operation.setOperationId("folderInsert");	
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "insertParameter");
-        		} else if (path.endsWith("/fileUpdate")) {
-        			operation.setOperationId("fileUpdate");	
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "updateParameter");
-        		} else if (path.endsWith("/createDocument/{name}")) {
-        			operation.setOperationId("createDocument");	
-        		}
-        	} else if (extension.equals("oexportrestcontroller")) {
-        		this.addDependency("com.ontimize.jee", "ontimize-jee-server-rest");
-
-        		if (path.endsWith("/{extension}/{id}")) {
-        			operation.setOperationId("downloadFile");
+				if (path.endsWith("/queryFiles/{workspaceId}")) {
+					operation.setOperationId("documentGetFiles");
+					this.addItem(extensions, X_BODY_NAME, "queryParameter");
+				} else if (path.endsWith("/getFile/{fileId}")) {
+					operation.setOperationId("fileGetContent");
 					this.addInternalParam(operation, "response", "HttpServletResponse");
 					this.addDependency("javax.servlet", "javax.servlet-api");
-        		} else if (path.endsWith("/{name}/{extension}")) {
-        			operation.setOperationId("export");
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "exportParameter");
-	   		        this.addExtension(extensions, "x-throws", "Exception");
-        		}
-        	} else if (extension.equals("remoteconfigurationrestcontroller")) {
-        		this.addDependency("com.ontimize.jee", "ontimize-jee-webclient-addons");
+				} else if (path.endsWith("/getFiles/{workspaceId}")) {
+					operation.setOperationId("fileGetContent");
+					this.addItem(extensions, X_BODY_NAME, "file");
+				} else if (path.endsWith("/getZipFile/{file}")) {
+					operation.setOperationId("fileGetZip");
+					this.addInternalParam(operation, "response", "HttpServletResponse");
+					this.addDependency("javax.servlet", "javax.servlet-api");
+				} else if (path.endsWith("/insertFile/{workspaceId}")) {
+					operation.setOperationId("fileInsert");
+				} else if (path.endsWith("/deleteFiles/{workspaceId}")) {
+					operation.setOperationId("delete");
+					this.addItem(extensions, X_BODY_NAME, "deleteParameter");
+					this.addItem(extensions, X_THROWS, "com.ontimize.jee.common.exceptions.DmsException");
+				} else if (path.endsWith("/insertFolder/{workspaceId}/{name}")) {
+					operation.setOperationId("folderInsert");
+					this.addItem(extensions, X_BODY_NAME, "insertParameter");
+				} else if (path.endsWith("/fileUpdate")) {
+					operation.setOperationId("fileUpdate");
+					this.addItem(extensions, X_BODY_NAME, "updateParameter");
+				} else if (path.endsWith("/createDocument/{name}")) {
+					operation.setOperationId("createDocument");
+				}
+			} else if (extension.equals("oexportrestcontroller")) {
+				this.addDependency("com.ontimize.jee", "ontimize-jee-server-rest");
 
-        		if (path.endsWith("/config") && "POST".equalsIgnoreCase(httpMethod)) {
-        			operation.setOperationId("createUserConfiguration");
-       			} else if (path.endsWith("/config") && "DELETE".equalsIgnoreCase(httpMethod)) {
-        			operation.setOperationId("delete");
-       			} else if (path.endsWith("/config/search") && "POST".equalsIgnoreCase(httpMethod)) {
-        			operation.setOperationId("getUserConfiguration");
-       			} else if (path.endsWith("/config") && "PUT".equalsIgnoreCase(httpMethod)) {
-       				operation.setOperationId("updateUserConfiguration");
-	   		        this.addExtension(extensions, "x-codegen-request-body-name", "updateParameter");
-       			}
+				if (path.endsWith("/{extension}/{id}")) {
+					operation.setOperationId("downloadFile");
+					this.addInternalParam(operation, "response", "HttpServletResponse");
+					this.addDependency("javax.servlet", "javax.servlet-api");
+				} else if (path.endsWith("/{name}/{extension}")) {
+					operation.setOperationId("export");
+					this.addItem(extensions, X_BODY_NAME, "exportParameter");
+					this.addItem(extensions, X_THROWS, "Exception");
+				}
+			} else if (extension.equals("remoteconfigurationrestcontroller")) {
+				this.addDependency("com.ontimize.jee", "ontimize-jee-webclient-addons");
+
+				if (path.endsWith("/config") && "POST".equalsIgnoreCase(httpMethod)) {
+					operation.setOperationId("createUserConfiguration");
+				} else if (path.endsWith("/config") && "DELETE".equalsIgnoreCase(httpMethod)) {
+					operation.setOperationId("delete");
+				} else if (path.endsWith("/config/search") && "POST".equalsIgnoreCase(httpMethod)) {
+					operation.setOperationId("getUserConfiguration");
+				} else if (path.endsWith("/config") && "PUT".equalsIgnoreCase(httpMethod)) {
+					operation.setOperationId("updateUserConfiguration");
+					this.addItem(extensions, X_BODY_NAME, "updateParameter");
+				}
 			}
-        }
+		}
 
-    	return super.fromOperation(path, httpMethod, operation, servers);
-    }
+		return super.fromOperation(path, httpMethod, operation, servers);
+	}
 
-    @Override
+	@Override
 	public String getTypeDeclaration(Schema p) {
 		if (p == null) {
 			LOGGER.warn("Null schema found. Default type to `NULL_SCHEMA_ERR`");
@@ -270,9 +284,9 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 		if (ModelUtils.isArraySchema(p) || (ModelUtils.isMapSchema(p) && !ModelUtils.isComposedSchema(p))) {
 			String format = "%s";
-			if (this.searchExtension(p.getExtensions(), "x-extends", true)) {
+			if (this.searchItemValue(p.getExtensions(), X_EXTENDS, true)) {
 				format = "? extends %s";
-			} else if (this.searchExtension(p.getExtensions(), "x-super", true)) {
+			} else if (this.searchItemValue(p.getExtensions(), X_SUPER, true)) {
 				format = "? super %s";
 			}
 
@@ -283,14 +297,14 @@ public class ServerCodegen extends AbstractJavaCodegen {
 				// Note: ModelUtils.isMapSchema(p) returns true when p is a composed schema that also defines
 				// additionalproperties: true
 				Schema<?> inner = this.getSchemaAdditionalProperties(p);
-				if (this.searchExtension(p.getExtensions(), "x-iswildcard", true)) {
+				if (this.searchItemValue(p.getExtensions(), X_IS_WILDCARD, true)) {
 					typeDeclaration = typeDeclaration + "<?, ";
 				} else {
 					typeDeclaration = typeDeclaration + "<String, ";
 				}
 				typeDeclaration = typeDeclaration + String.format(format, this.getTypeDeclaration(ModelUtils.unaliasSchema(this.openAPI, inner))) + ">";
 			}
-		} else if (this.searchExtension(p.getExtensions(), "x-iswildcard", true)) {
+		} else if (this.searchItemValue(p.getExtensions(), X_IS_WILDCARD, true)) {
 			typeDeclaration = "?";
 		}
 
@@ -324,16 +338,33 @@ public class ServerCodegen extends AbstractJavaCodegen {
 	}
 	*/
 
-    @Override
-    public Map<String, Object> postProcessSupportingFileData(Map<String, Object> objs) {
-    	super.postProcessSupportingFileData(objs);
-    	
-        objs.put("dependencies", this.dependencies.values());
-    	
-        return objs;
-    }
+	@Override
+	public Map<String, Object> postProcessSupportingFileData(Map<String, Object> objs) {
+		super.postProcessSupportingFileData(objs);
 
-    @Override
+		Object value = this.getItemValue(this.additionalProperties, DEPENDENCIES);
+
+		if (value != null) {
+			String[] items = value.toString().split(",");
+
+			for (String item: items) {
+				String[] words = item.split("[.]");
+
+				if (words.length > 1) {
+					String groupId = String.join(".", ArrayUtils.remove(words, words.length - 1));
+					String artifactId = words[words.length - 1];
+
+					this.addDependency(groupId, artifactId);
+				}
+			}
+		}
+
+		objs.put(DEPENDENCIES, this.dependencies.values());
+
+		return objs;
+	}
+
+	@Override
 	public void processOpts() {
 		super.processOpts();
 
@@ -346,8 +377,10 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 		this.typeMapping.remove("file");
 		this.typeMapping.put("file", "org.springframework.web.multipart.MultipartFile");
-		
+
 		this.importMapping.put("HttpServletResponse", "javax.servlet.http.HttpServletResponse");
+
+		this.importMapping.put("Void", "java.lang.Void");
 
 		this.importMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
 		this.importMapping.put("EntityResult", "com.ontimize.db.EntityResult");
@@ -377,25 +410,15 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		return null;
 	}
 
-    public void addDependency(String groupId, String artifactId) {
-    	Map<String, Object> dependency = new HashMap<>();
-    	String key = groupId + "." + artifactId; 
-    	
-    	if (!this.dependencies.containsKey(key)) {
-	    	dependency.put("groupId", groupId);
-	    	dependency.put("artifactId", artifactId);
-	    	
-	    	this.dependencies.put(key, dependency);
-    	}
-    }
+	public void addDependency(String groupId, String artifactId) {
+		Map<String, Object> dependency = new HashMap<>();
+		String key = groupId + "." + artifactId;
 
-    private void addExtension(java.util.Map<String, Object> extensions, String name, Object value) {
-		if (extensions != null) {
-			Object extension = extensions.get(name);
+		if (!this.dependencies.containsKey(key)) {
+			dependency.put(CodegenConstants.GROUP_ID, groupId);
+			dependency.put(CodegenConstants.ARTIFACT_ID, artifactId);
 
-			if (extension == null || !extension.equals(value)) {
-				extensions.put(name, value);
-			}
+			this.dependencies.put(key, dependency);
 		}
 	}
 
@@ -403,32 +426,41 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		Schema schema = new Schema();
 		schema.setName(name);
 		schema.setType(type);
-		
+
 		Parameter parameter = new Parameter();
-		Set<String> imports = new HashSet<String>();
 		parameter.setName(name);
 		parameter.setSchema(schema);
-		
-		co.getParameters().add(parameter);
-    }
 
-	private Object getExtension(java.util.Map<String, Object> extensions, String name) {
+		co.getParameters().add(parameter);
+	}
+
+	private void addItem(java.util.Map<String, Object> map, String key, Object value) {
+		if (map != null) {
+			Object item = map.get(key);
+
+			if (item == null || !item.equals(value)) {
+				map.put(key, value);
+			}
+		}
+	}
+
+	private Object getItemValue(java.util.Map<String, Object> map, String key) {
 		Object value = null;
 
-		if (extensions != null) {
-			value = extensions.get(name);
+		if (map != null) {
+			value = map.get(key);
 		}
 
 		return value;
 	}
 
-	private boolean searchExtension(java.util.Map<String, Object> extensions, String name, Object value) {
+	private boolean searchItemValue(java.util.Map<String, Object> map, String key, Object value) {
 		boolean found = false;
 
-		if (extensions != null) {
-			Object extension = extensions.get(name);
+		if (map != null) {
+			Object item = map.get(key);
 
-			if (extension != null && extension.equals(value)) {
+			if (item != null && item.equals(value)) {
 				found = true;
 			}
 		}

@@ -8,19 +8,15 @@ default:
       .
     responses:
       '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 test:
   get:
@@ -32,17 +28,13 @@ test:
       .
     responses:
       '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
         

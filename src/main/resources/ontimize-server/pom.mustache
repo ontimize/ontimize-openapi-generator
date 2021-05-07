@@ -25,15 +25,6 @@
 	</properties>
 {{/parentArtifactId}}
 	<dependencies>
-{{#importArtifactId}}
-		<dependency>
-			<groupId>{{importGroupId}}</groupId>
-			<artifactId>{{importArtifactId}}</artifactId>
-{{^parentArtifactId}}
-			<version>{{importArtifactVersion}}</version>
-{{/parentArtifactId}}
-		</dependency>
-{{/importArtifactId}}
 {{#dependencies}}
 		<dependency>
 			<groupId>{{groupId}}</groupId>

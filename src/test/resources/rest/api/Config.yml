@@ -10,19 +10,15 @@ default:
       $ref: '#/components/requestBodies/Values'
     responses:
       '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
   delete:
     tags:
@@ -35,19 +31,15 @@ default:
       $ref: '#/components/requestBodies/Values'
     responses:
       '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
   put:
     tags:
@@ -60,19 +52,15 @@ default:
       $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
     responses:
       '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 search:
   post:
@@ -86,19 +74,15 @@ search:
       $ref: '#/components/requestBodies/Values'
     responses:
       '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              $ref: '../base/EntityResult.yml#/components/schemas/EntityResult'
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 components:
   requestBodies:

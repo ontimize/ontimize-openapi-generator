@@ -28,13 +28,13 @@ queryfiles:
               items:
                 $ref: '../base/OFile.yml#/components/schemas/OFile'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 getfile:
   get:
@@ -52,7 +52,6 @@ getfile:
           type: integer
           minimum: 1
         required: true
-    x-responsebody: true
     responses:
       '200':
         description: OK
@@ -63,13 +62,13 @@ getfile:
                 schema:
                   type: string
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 getfiles:
   post:
@@ -100,13 +99,13 @@ getfiles:
               additionalProperties:
                 type: string
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 getzipfile:
   get:
@@ -123,7 +122,6 @@ getzipfile:
         schema:
           type: string
         required: true
-    x-responsebody: true
     responses:
       '200':
         description: OK
@@ -134,13 +132,13 @@ getzipfile:
                 schema:
                   type: string
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 insertfile:
   post:
@@ -174,13 +172,13 @@ insertfile:
             schema:
               $ref: '../base/DocumentIdentifier.yml#/components/schemas/DocumentIdentifier'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 deletefiles:
   post:
@@ -203,15 +201,15 @@ deletefiles:
       required: true
     responses:
       '200':
-        description: OK
+        $ref: '../base/Responses.yml#/components/responses/Void'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 insertfolder:
   post:
@@ -241,15 +239,15 @@ insertfolder:
       required: true
     responses:
       '200':
-        description: OK
+        $ref: '../base/Responses.yml#/components/responses/Void'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
 fileUpdate:
   post:
@@ -264,15 +262,15 @@ fileUpdate:
       required: true
     responses:
       '200':
-        description: OK
+        $ref: '../base/Responses.yml#/components/responses/Void'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
     
 createdocument:
   get:
@@ -297,10 +295,10 @@ createdocument:
             schema:
               $ref: '../base/Number.yml#/components/schemas/Number'
       '400':
-        $ref: '../base/Error.yml#/components/responses/BadRequest'
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
       '401':
-        $ref: '../base/Error.yml#/components/responses/Unauthorized'
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
       '404':
-        $ref: '../base/Error.yml#/components/responses/NotFound'
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
-        $ref: '../base/Error.yml#/components/responses/Unexpected'
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'

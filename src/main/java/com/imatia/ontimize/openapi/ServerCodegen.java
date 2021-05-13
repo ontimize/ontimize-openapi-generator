@@ -40,12 +40,12 @@ public class ServerCodegen extends AbstractJavaCodegen {
 	private static final String DEPENDENCIES = "dependencies";
 
 	private static final String X_BODY_NAME = "x-codegen-request-body-name";
-	private static final String X_THROWS = "x-throws";
-	private static final String X_HAS_PARENT_PATH = "x-hasparentpath";
-	private static final String X_REST_CONTROLLER = "x-restcontroller";
-	private static final String X_IS_WILDCARD = "x-iswildcard";
-	private static final String X_SUPER = "x-super";
 	private static final String X_EXTENDS = "x-extends";
+	private static final String X_HAS_PARENT_PATH = "x-hasparentpath";
+	private static final String X_IS_WILDCARD = "x-iswildcard";
+	private static final String X_REST_CONTROLLER = "x-restcontroller";
+	private static final String X_SUPER = "x-super";
+	private static final String X_THROWS = "x-throws";
 
 	protected String apiVersion = "1.0.0";
 	protected Map<String, Object> dependencies = new HashMap<>();
@@ -382,8 +382,10 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 		this.importMapping.put("Void", "java.lang.Void");
 
-		this.importMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
-		this.importMapping.put("EntityResult", "com.ontimize.db.EntityResult");
+		//this.importMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
+		//this.importMapping.put("EntityResult", "com.ontimize.db.EntityResult");
+		this.importMapping.put("AdvancedEntityResult", "com.ontimize.jee.common.db.AdvancedEntityResult");
+		this.importMapping.put("EntityResult", "com.ontimize.jee.common.dto.EntityResult");
 
 		this.importMapping.put("AdvancedQueryParameter", "com.ontimize.jee.server.rest.AdvancedQueryParameter");
 		this.importMapping.put("DeleteParameter", "com.ontimize.jee.server.rest.DeleteParameter");

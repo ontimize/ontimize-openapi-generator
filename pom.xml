@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.imatia.ontimize</groupId>
+	<groupId>com.ontimize</groupId>
 	<artifactId>ontimize-openapi-generator</artifactId>
 	<packaging>jar</packaging>
 	<name>ontimize-openapi-generator</name>
@@ -13,6 +13,29 @@
 		<maven-plugin-version>1.0.0</maven-plugin-version>
 		<junit-version>4.8.1</junit-version>
 	</properties>
+
+	<organization>
+		<name>Imatia Innovation</name>
+		<url>http://imatia.com</url>
+	</organization>
+
+	<prerequisites>
+		<maven>3.1.1</maven>
+	</prerequisites>
+
+	<distributionManagement>
+		<repository>
+			<id>imatia-artifactory-imatia-local</id>
+			<name>plugins-release</name>
+			<url>https://artifactory.imatia.com/artifactory/plugins-imatia-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>imatia-artifactory-imatia-local</id>
+			<name>plugins-release</name>
+			<url>https://artifactory.imatia.com/artifactory/plugins-imatia-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.openapitools</groupId>

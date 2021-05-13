@@ -8,8 +8,8 @@ default:
     x-restcontroller: orestcontroller
     parameters:
       - $ref: '#/components/schemas/NameParam'
-      - $ref: '../base/GetParameter.yml#/components/schemas/FilterParam'
-      - $ref: '../base/GetParameter.yml#/components/schemas/ColumnsParam'
+      - $ref: '../base/FilterParameter.yml#/components/schemas/FilterParameter'
+      - $ref: '../base/ColumnsParameter.yml#/components/schemas/ColumnsParameter'
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

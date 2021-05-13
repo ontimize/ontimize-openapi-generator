@@ -1,14 +1,11 @@
 openapi: 3.0.3
 info:
-  title: QSAllComponents API 
+  title: QSAllComponents API
   version: '1.0'
-  description: "The QSAllComponents API"
+  description: The QSAllComponents API
 servers:
   - url: 'http://localhost:8080/qsallcomponents-jee/services/rest/'
     description: Localhost
-    variables: 
-      port: 
-        default: "8080"
 paths:
   /administration/permissions:
     $ref: 'api/Administration.yml#/permissions'
@@ -57,8 +54,8 @@ paths:
 
   /dummy:
     $ref: 'api/Dummy.yml#/default'
-  /dummy/test:
-    $ref: 'api/Dummy.yml#/test'
+  /dummy/dummypermission:
+    $ref: 'api/Dummy.yml#/dummypermission'
 
   /employees/{name}:
     $ref: 'api/Employee.yml#/default'

@@ -1,4 +1,67 @@
 default:
+  post:
+    tags:
+      - Customers
+    summary: Inserts a Customer.
+    description: >
+      This resource represents a customer in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
+          example:
+            data:
+              CUSTOMERTYPEID: '3'
+              NAME: 'Laura'
+              ADDRESS: '22 Holloway Road'
+              COMMENTS: 'VIP'
+              STARTDATE: '2009-10-06'
+              SURNAME: 'Bugle'
+              ID: '11111111H'
+              EMAIL: 'laurabugle@yopmail.com'
+              COMMENTS_EN_US: 'VIP'
+              COMMENTS_ES_ES: 'VIP'
+              COMMENTS_GL_ES: 'VIP'
+              LONGITUDE: -0.1241922E0
+              LATITUDE: 51.5245879E0
+              ID_DMS_DOC: 5
+              COUNTRY: 'Germany'
+              STATE: 'Berlin'
+              ZIPCODE: '10115'
+            sqltypes:
+              CUSTOMERID: 4
+              CUSTOMERTYPEID: 4
+              NAME: 12
+              ADDRESS: 12
+              COMMENTS: 12
+              STARTDATE: 93
+              SURNAME: 12
+              ID: 12
+              EMAIL: 12
+              COMMENTS_EN_US: 12
+              COMMENTS_ES_ES: 12
+              COMMENTS_GL_ES: 12
+              LONGITUDE: 8
+              LATITUDE: 8
+              ID_DMS_DOC: 4
+              COUNTRY: 12
+              STATE: 12
+              ZIPCODE: 12
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
   get:
     tags:
       - Customers
@@ -7,9 +70,36 @@ default:
       This resource represents a list of customers in the system.
     x-restcontroller: orestcontroller
     parameters:
-      - $ref: '#/components/schemas/NameParam'
-      - $ref: '../base/FilterParameter.yml#/components/schemas/FilterParameter' 
-      - $ref: '../base/ColumnsParameter.yml#/components/schemas/ColumnsParameter' 
+      - in: query
+        name: filter
+        description: Filter
+        schema:
+          type: string
+        required: false
+        examples:
+          name:
+            value: 'NAME=Laura'
+          address:
+            value: 'ADDRESS=22 Holloway Road'
+          surname:
+            value: 'SURNAME=Bugle'
+          id:
+            value: 'ID=11111111H'
+          email:
+            value: 'EMAIL=laurabugle@yopmail.com'
+          country:
+            value: 'COUNTRY=Germany'
+          state:
+            value: 'STATE=Murcia'
+          zipcode:
+            value: 'ZIPCODE=10115'
+      - in: query
+        name: columns
+        description: Columns
+        required: false
+        schema:
+          type: string
+          example: CUSTOMERID,CUSTOMERTYPEID,NAME,ADDRESS,COMMENTS,STARTDATE,SURNAME,ID,EMAIL,COMMENTS_EN_US,COMMENTS_ES_ES,COMMENTS_GL_ES,LONGITUDE,LATITUDE,SIGNATURE,ID_DMS_DOC,COUNTRY,STATE,ZIPCODE,PHONE, 
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -22,55 +112,6 @@ default:
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
-insert:
-  post:
-    tags:
-      - Customers
-    summary: Inserts a Customer.
-    description: >
-      This resource represents a customer in the system.
-    x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
-    requestBody:
-      $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-delete:
-  delete:
-    tags:
-      - Customers
-    summary: Deletes a Customers.
-    description: >
-      This resource represents a customer in the system.
-    x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
-    requestBody:
-      $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-update:
   put:
     tags:
       - Customers
@@ -78,10 +119,63 @@ update:
     description: >
       This resource represents a customer in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/UpdateParameter.yml#/components/schemas/UpdateParameter'
+          examples:
+            comment:
+              value:
+                data:
+                  COMMENTS: 'Call him next wednesday.'
+                filter:
+                  CUSTOMERID: 19384
+                sqltypes:
+                  CUSTOMERID: 4
+                  COMMENTS: 12
+            email:
+              value:
+                data:
+                  EMAIL: 'laurabugle@gmail.com'
+                filter:
+                  CUSTOMERID: 19384
+                sqltypes:
+                  CUSTOMERID: 4
+                  EMAIL: 12
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
+  delete:
+    tags:
+      - Customers
+    summary: Deletes a Customers.
+    description: >
+      This resource represents a customer in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/DeleteParameter.yml#/components/schemas/DeleteParameter'
+          examples:
+            name_and_surname:
+              value:
+                filter:
+                  CUSTOMERID: 19384
+                sqltypes:
+                  CUSTOMERID: 4
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -102,10 +196,39 @@ search:
     description: >
       This resource represents a list of customers in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
+      content:
+        application/json:
+          schema:
+            $ref: '../base/QueryParameter.yml#/components/schemas/QueryParameter'
+          examples:
+            surname:
+              value:
+                filter:
+                  SURNAME: 'Bugle'
+                columns:
+                  - CUSTOMERID
+                  - CUSTOMERTYPEID
+                  - NAME
+                  - ADDRESS
+                  - COMMENTS
+                  - STARTDATE
+                  - SURNAME
+                  - ID
+                  - EMAIL
+                  - COMMENTS_EN_US
+                  - COMMENTS_ES_ES
+                  - COMMENTS_GL_ES
+                  - LONGITUDE
+                  - LATITUDE
+                  - SIGNATURE
+                  - ID_DMS_DOC
+                  - COUNTRY
+                  - STATE
+                  - ZIPCODE
+                  - PHONE
+                sqltypes:
+                  SURNAME: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -126,10 +249,44 @@ advancedsearch:
     description: >
       This resource represents a list of customers in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
+      content:
+        application/json:
+          schema:
+            $ref: '../base/AdvancedQueryParameter.yml#/components/schemas/AdvancedQueryParameter'
+          examples:
+            surname:
+              value:
+                filter:
+                  SURNAME: 'Bugle'
+                columns:
+                  - CUSTOMERID
+                  - CUSTOMERTYPEID
+                  - NAME
+                  - ADDRESS
+                  - COMMENTS
+                  - STARTDATE
+                  - SURNAME
+                  - ID
+                  - EMAIL
+                  - COMMENTS_EN_US
+                  - COMMENTS_ES_ES
+                  - COMMENTS_GL_ES
+                  - LONGITUDE
+                  - LATITUDE
+                  - SIGNATURE
+                  - ID_DMS_DOC
+                  - COUNTRY
+                  - STATE
+                  - ZIPCODE
+                  - PHONE
+                sqltypes:
+                  SURNAME: 12
+                pageSize: 20
+                offset: 0
+                orderBy:
+                  - columnName: NAME
+                    ascendent: true
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/AdvancedEntityResult'
@@ -141,83 +298,3 @@ advancedsearch:
         $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-downloadfile:
-  get:
-    tags:
-      - Customers
-    summary: Downloads a file.
-    description: >
-      This resource represents a file in the system.
-    x-restcontroller: oexportrestcontroller
-    parameters: 
-      - in: path
-        name: extension
-        description: File extension
-        schema:
-          type: string
-        required: true
-      - in: path
-        name: id
-        description: File Id
-        schema:
-          type: string
-        required: true
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/None'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-export:
-  post:
-    tags:
-      - Customers
-    summary: Exports a list of Customers.
-    description: >
-      This resource represents a list of customers in the system.
-    x-restcontroller: oexportrestcontroller
-    parameters: 
-      - in: path
-        name: name
-        description: File name
-        schema:
-          type: string
-        required: true
-      - in: path
-        name: extension
-        description: File extension
-        schema:
-          type: string
-        required: true
-    requestBody:
-      $ref: '../base/ExportParameter.yml#/components/requestBodies/ExportParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-components:
-  schemas:
-    NameParam:
-      in: path
-      name: name
-      description: Name
-      required: true
-      schema:
-        type: string
-        enum: 
-          - customer

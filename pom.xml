@@ -6,7 +6,7 @@
 	<artifactId>ontimize-openapi-generator</artifactId>
 	<packaging>jar</packaging>
 	<name>ontimize-openapi-generator</name>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<openapi-generator-version>4.3.1</openapi-generator-version>
@@ -118,8 +118,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>
-									src/main/java</source>
+								<source>src/main/java</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -131,8 +130,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>
-									src/test/java</source>
+								<source>src/test/java</source>
 							</sources>
 						</configuration>
 					</execution>

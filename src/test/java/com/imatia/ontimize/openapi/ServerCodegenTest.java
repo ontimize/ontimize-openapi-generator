@@ -30,6 +30,7 @@ public class ServerCodegenTest {
 				.setOutputDir("target/server"); // output directory
 
 		final ClientOptInput clientOptInput = configurator.toClientOptInput();
+
 		DefaultGenerator generator = new DefaultGenerator();
 		generator.opts(clientOptInput).generate();
 	}

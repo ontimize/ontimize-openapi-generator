@@ -1,4 +1,62 @@
 default:
+  post:
+    tags:
+      - Branches
+    summary: Inserts a Branch.
+    description: >
+      This resource represents a branch in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
+          example:
+            data:
+              OFFICEID: '0005'
+              NAME: 'BCMR Market Service Centre'
+              ADDRESS: 'Centro City 11 Trump st.'
+              STARTDATE: '1993-04-05'
+              PHONE: '+27 11 490 8111'
+              ADDRESS_EN_US: 'Centro City 11 Trump st.'
+              ADDRESS_ES_ES: 'Centro City 11 Trump st.'
+              ADDRESS_GL_ES: 'Centro City 11 Trump st.'
+              NAME_EN_US: 'BCMR Market Service Centre'
+              NAME_ES_ES: 'BCMR Market Service Centre'
+              NAME_GL_ES: 'BCMR Market Service Centre'
+              BRANCH_PLAN: '0070.png'
+              MINLONGITUDE: 28.037819882305143E0
+              MINLATITUDE: 40.473897513466376E0
+              COUNTRY: 'South Africa'
+            sqltypes:
+              OFFICEID: 12
+              NAME: 12
+              ADDRESS: 12
+              STARTDATE: 91
+              PHONE: 12
+              ADDRESS_EN_US: 12
+              ADDRESS_ES_ES: 12
+              ADDRESS_GL_ES: 12
+              NAME_EN_US: 12
+              NAME_ES_ES: 12
+              NAME_GL_ES: 12
+              BRANCH_PLAN: 12
+              MINLONGITUDE: 8
+              MINLATITUDE: 8
+              COUNTRY: 12
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
   get:
     tags:
       - Branches
@@ -7,9 +65,46 @@ default:
       This resource represents a list of branches in the system.
     x-restcontroller: orestcontroller
     parameters:
-      - $ref: '#/components/schemas/NameParam'
-      - $ref: '../base/FilterParameter.yml#/components/schemas/FilterParameter' 
-      - $ref: '../base/ColumnsParameter.yml#/components/schemas/ColumnsParameter' 
+      - in: query
+        name: filter
+        description: Filter
+        schema:
+          type: string
+        required: false
+        examples:
+          officeid:
+            value: 'OFFICEID=0005'
+          name:
+            value: 'NAME=BCMR Market Service Centre'
+          address:
+            value: 'ADDRESS=Centro City 11 Trump st.'
+          details:
+            value: 'DETAILS=The main branch of the bank.'
+          phone:
+            value: 'PHONE=+27 11 490 8111'
+          address_en_us:
+            value: 'ADDRESS_EN_US=Centro City 11 Trump st.'
+          address_es_es:
+            value: 'ADDRESS_ES_ES=Centro City 11 Trump st.'
+          address_gl_es:
+            value: 'ADDRESS_GL_ES=Centro City 11 Trump st.'
+          name_en_us:
+            value: 'NAME_EN_US=BCMR Market Service Centre'
+          name_es_es:
+            value: 'NAME_ES_ES=BCMR Market Service Centre'
+          name_gl_es:
+            value: 'NAME_GL_ES=BCMR Market Service Centre'
+          branch_plan:
+            value: 'BRANCH_PLAN=0070.png'
+          country:
+            value: 'COUNTRY=US'
+      - in: query
+        name: columns
+        description: Columns
+        required: false
+        schema:
+          type: string
+          example: OFFICEID,NAME,ADDRESS,STARTDATE,DETAILS,PHONE,ADDRESS_EN_US,ADDRESS_ES_ES,ADDRESS_GL_ES,NAME_EN_US,NAME_ES_ES,NAME_GL_ES,BRANCH_PLAN,MAXLONGITUDE,MINLONGITUDE,MAXLATITUDE,MINLATITUDE,GEOMETRYLAYOUT,COUNTRY 
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -22,55 +117,6 @@ default:
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
-insert:
-  post:
-    tags:
-      - Branches
-    summary: Inserts a Branch.
-    description: >
-      This resource represents a branch in the system.
-    x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
-    requestBody:
-      $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-delete:
-  delete:
-    tags:
-      - Branches
-    summary: Deletes a Branch.
-    description: >
-      This resource represents a branch in the system.
-    x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
-    requestBody:
-      $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-update:
   put:
     tags:
       - Branches
@@ -78,10 +124,63 @@ update:
     description: >
       This resource represents a branch in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/UpdateParameter.yml#/components/schemas/UpdateParameter'
+          examples:
+            details:
+              value:
+                data:
+                  DETAILS: 'The main branch of the bank.'
+                filter:
+                  OFFICEID: '0005'
+                sqltypes:
+                  OFFICEID: 12
+                  DETAILS: 12
+            phone:
+              value:
+                data:
+                  PHONE: '+27 11 490 8118'
+                filter:
+                  OFFICEID: '0005'
+                sqltypes:
+                  OFFICEID: 12
+                  DETAILS: 12
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
+  delete:
+    tags:
+      - Branches
+    summary: Deletes a Branch.
+    description: >
+      This resource represents a branch in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/DeleteParameter.yml#/components/schemas/DeleteParameter'
+          examples:
+            officeid:
+              value:
+                filter:
+                  OFFICEID: '0005'
+                sqltypes:
+                  OFFICEID: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -102,10 +201,66 @@ search:
     description: >
       This resource represents a list of branches in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
+      content:
+        application/json:
+          schema:
+            $ref: '../base/QueryParameter.yml#/components/schemas/QueryParameter'
+          examples:
+            officeid:
+              value:
+                filter:
+                  OFFICEID: '0005'
+                columns:
+                  - OFFICEID
+                  - NAME
+                  - ADDRESS
+                  - STARTDATE
+                  - DETAILS
+                  - PHONE
+                  - ADDRESS_EN_US
+                  - ADDRESS_ES_ES
+                  - ADDRESS_GL_ES
+                  - NAME_EN_US
+                  - NAME_ES_ES
+                  - NAME_GL_ES
+                  - BRANCH_PLAN
+                  - MAXLONGITUDE
+                  - MINLONGITUDE
+                  - MAXLATITUDE
+                  - MINLATITUDE
+                  - GEOMETRYLAYOUT
+                  - COUNTRY
+                sqltypes:
+                  OFFICEID: 12
+            address_and_country:
+              value:
+                filter:
+                  ADDRESS: 'Centro City 11 Trump st.'
+                  COUNTRY: 'South Africa'
+                columns:
+                  - OFFICEID
+                  - NAME
+                  - ADDRESS
+                  - STARTDATE
+                  - DETAILS
+                  - PHONE
+                  - ADDRESS_EN_US
+                  - ADDRESS_ES_ES
+                  - ADDRESS_GL_ES
+                  - NAME_EN_US
+                  - NAME_ES_ES
+                  - NAME_GL_ES
+                  - BRANCH_PLAN
+                  - MAXLONGITUDE
+                  - MINLONGITUDE
+                  - MAXLATITUDE
+                  - MINLATITUDE
+                  - GEOMETRYLAYOUT
+                  - COUNTRY
+                sqltypes:
+                  ADDRESS: 12
+                  COUNTRY: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -126,10 +281,45 @@ advancedsearch:
     description: >
       This resource represents a list of branches in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
+      content:
+        application/json:
+          schema:
+            $ref: '../base/AdvancedQueryParameter.yml#/components/schemas/AdvancedQueryParameter'
+          examples:
+            address_and_country:
+              value:
+                filter:
+                  ADDRESS: 'Centro City 11 Trump st.'
+                  COUNTRY: 'South Africa'
+                columns:
+                  - OFFICEID
+                  - NAME
+                  - ADDRESS
+                  - STARTDATE
+                  - DETAILS
+                  - PHONE
+                  - ADDRESS_EN_US
+                  - ADDRESS_ES_ES
+                  - ADDRESS_GL_ES
+                  - NAME_EN_US
+                  - NAME_ES_ES
+                  - NAME_GL_ES
+                  - BRANCH_PLAN
+                  - MAXLONGITUDE
+                  - MINLONGITUDE
+                  - MAXLATITUDE
+                  - MINLATITUDE
+                  - GEOMETRYLAYOUT
+                  - COUNTRY
+                sqltypes:
+                  ADDRESS: 12
+                  COUNTRY: 12
+                pageSize: 20
+                offset: 0
+                orderBy:
+                  - columnName: NAME
+                    ascendent: true
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/AdvancedEntityResult'
@@ -141,6 +331,7 @@ advancedsearch:
         $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
 plan:
   post:
     operationId: plan 
@@ -150,7 +341,8 @@ plan:
     description: >
       .
     x-hasparentpath: true
-    x-throws: java.io.IOException, com.fasterxml.jackson.core.JsonParseException, com.fasterxml.jackson.databind.JsonMappingException;
+    x-throws: 'java.io.IOException, com.fasterxml.jackson.core.JsonParseException, com.fasterxml.jackson.databind.JsonMappingException'
+    x-codegen-request-body-name: 'files'
     parameters: 
       - in: query
         name: names
@@ -159,12 +351,16 @@ plan:
           type: array
           items:
             type: string
+          example:
+            - 'File upload test #1'
         required: true
       - in: query
         name: data
         description: the data
         schema:
           type: string
+          example:
+            OFFICEID: '0005'
         required: false
     requestBody:
       $ref: '../base/MultipartFiles.yml#/components/requestBodies/MultipartFiles'
@@ -179,15 +375,3 @@ plan:
         $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-components:
-  schemas:
-    NameParam:
-      in: path
-      name: name
-      description: Name
-      required: true
-      schema:
-        type: string
-        enum: 
-          - branch

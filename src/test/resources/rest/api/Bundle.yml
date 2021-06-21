@@ -3,9 +3,9 @@ default:
     operationId: getBundle
     tags:
       - Bundle
-    summary: .
+    summary: Test
     description: >
-      .
+      Test
     parameters: 
       - in: query
         name: lang
@@ -13,6 +13,11 @@ default:
         schema:
           type: string
         required: true
+        examples:
+          English:
+           value: en
+          Spanish:
+           value: es
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

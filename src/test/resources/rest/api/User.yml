@@ -1,4 +1,50 @@
 default:
+  post:
+    tags:
+      - Users
+    summary: Inserts an User.
+    description: >
+      This resource represents an user in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
+          example:
+            data:
+              USER_: 'laura'
+              PASSWORD: '1432'
+              NAME: 'Laura'
+              SURNAME: 'Bugle'
+              EMAIL: 'laurabugle@gmail.com'
+              NIF: '11111111H'
+              USERBLOCKED: '2016-09-19T12:00:00Z'
+              LASTPASSWORDUPDATE: '2015-12-01T12:00:00'
+              FIRSTLOGIN: FALSE
+            sqltypes:
+              USER_: 12
+              PASSWORD: 12
+              NAME: 12
+              SURNAME: 12
+              EMAIL: 12
+              NIF: 12
+              USERBLOCKED: 93
+              LASTPASSWORDUPDATE: 93
+              FIRSTLOGIN: 16
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
   get:
     tags:
       - Users
@@ -7,9 +53,32 @@ default:
       This resource represents a list of users in the system.
     x-restcontroller: orestcontroller
     parameters:
-      - $ref: '#/components/schemas/NameParam'
-      - $ref: '../base/FilterParameter.yml#/components/schemas/FilterParameter'
-      - $ref: '../base/ColumnsParameter.yml#/components/schemas/ColumnsParameter'
+      - in: query
+        name: filter
+        description: Filter
+        schema:
+          type: string
+        required: false
+        examples:
+          user_:
+            value: 'USER_=laura'
+          password:
+            value: 'PASSWORD=demouser'
+          name:
+            value: 'NAME=Laura'
+          surname:
+            value: 'SURNAME=Bugle'
+          email:
+            value: 'EMAIL=laurabugle@gmail.com'
+          nif:
+            value: 'NIF=11111111H'
+      - in: query
+        name: columns
+        description: Columns
+        required: false
+        schema:
+          type: string
+          example: USER_,PASSWORD,NAME,SURNAME,EMAIL,NIF,USERBLOCKED,LASTPASSWORDUPDATE,FIRSTLOGIN
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -22,55 +91,6 @@ default:
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
 
-insert:
-  post:
-    tags:
-      - Users
-    summary: Inserts an User.
-    description: >
-      This resource represents an user in the system.
-    x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
-    requestBody:
-      $ref: '../base/InsertParameter.yml#/components/requestBodies/InsertParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-delete:
-  delete:
-    tags:
-      - Users
-    summary: Deletes an User.
-    description: >
-      This resource represents an user in the system.
-    x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
-    requestBody:
-      $ref: '../base/DeleteParameter.yml#/components/requestBodies/DeleteParameter'
-    responses:
-      '200':
-        $ref: '../base/Responses.yml#/components/responses/EntityResult'
-      '400':
-        $ref: '../base/Responses.yml#/components/responses/BadRequest'
-      '401':
-        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
-      '404':
-        $ref: '../base/Responses.yml#/components/responses/NotFound'
-      default:
-        $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-update:
   put:
     tags:
       - Users
@@ -78,10 +98,61 @@ update:
     description: >
       This resource represents an user in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/UpdateParameter.yml#/components/requestBodies/UpdateParameter'
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/UpdateParameter.yml#/components/schemas/UpdateParameter'
+          examples:
+            pasword:
+              value:
+                data:
+                  PASSWORD: 'mT765HkqjY_34:76l'
+                filter:
+                  USER_: 'laura'
+                sqltypes:
+                  USER_: 12
+            email:
+              value:
+                data:
+                  EMAIL: 'laura.bugle@gmail.com'
+                filter:
+                  USER_: 'laura'
+                sqltypes:
+                  USER_: 12
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
+  delete:
+    tags:
+      - Users
+    summary: Deletes an User.
+    description: >
+      This resource represents an user in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../base/DeleteParameter.yml#/components/schemas/DeleteParameter'
+          examples:
+            userid:
+              value:
+                filter:
+                  USER_: 'laura'
+                sqltypes:
+                  USER_: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -102,10 +173,28 @@ search:
     description: >
       This resource represents a list of users in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/QueryParameter.yml#/components/requestBodies/QueryParameter'
+      content:
+        application/json:
+          schema:
+            $ref: '../base/QueryParameter.yml#/components/schemas/QueryParameter'
+          examples:
+            surname:
+              value:
+                filter:
+                  SURNAME: 'Bugle'
+                columns:
+                  - USER_
+                  - PASSWORD
+                  - NAME
+                  - SURNAME
+                  - EMAIL
+                  - NIF
+                  - USERBLOCKED
+                  - LASTPASSWORDUPDATE
+                  - FIRSTLOGIN
+                sqltypes:
+                  SURNAME: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -126,10 +215,33 @@ advancedsearch:
     description: >
       This resource represents a list of users in the system.
     x-restcontroller: orestcontroller
-    parameters:
-      - $ref: '#/components/schemas/NameParam'
     requestBody:
-      $ref: '../base/AdvancedQueryParameter.yml#/components/requestBodies/AdvancedQueryParameter'
+      content:
+        application/json:
+          schema:
+            $ref: '../base/AdvancedQueryParameter.yml#/components/schemas/AdvancedQueryParameter'
+          examples:
+            surname:
+              value:
+                filter:
+                  SURNAME: 'Bugle'
+                columns:
+                  - USER_
+                  - PASSWORD
+                  - NAME
+                  - SURNAME
+                  - EMAIL
+                  - NIF
+                  - USERBLOCKED
+                  - LASTPASSWORDUPDATE
+                  - FIRSTLOGIN
+                sqltypes:
+                  SURNAME: 12
+                pageSize: 20
+                offset: 0
+                orderBy:
+                  - columnName: NAME
+                    ascendent: true
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/AdvancedEntityResult'
@@ -162,15 +274,3 @@ login:
         $ref: '../base/Responses.yml#/components/responses/NotFound'
       default:
         $ref: '../base/Responses.yml#/components/responses/Unexpected'
-
-components:
-  schemas:
-    NameParam:
-      in: path
-      name: name
-      description: Name
-      required: true
-      schema:
-        type: string
-        enum: 
-          - user

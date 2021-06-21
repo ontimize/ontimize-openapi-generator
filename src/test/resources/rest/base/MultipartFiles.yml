@@ -1,9 +1,12 @@
 components:
   schemas:
     MultipartFiles:
-      type: array
-      items:
-        $ref: 'MultipartFile.yml#/components/schemas/MultipartFile'
+      type: object
+      properties:
+        filename:
+          type: array
+          items:
+            $ref: 'MultipartFile.yml#/components/schemas/MultipartFile'
 
   requestBodies:
     MultipartFiles:

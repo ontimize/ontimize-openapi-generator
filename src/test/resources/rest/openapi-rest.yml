@@ -4,25 +4,22 @@ info:
   version: '1.0'
   description: The QSAllComponents API
 servers:
-  - url: 'http://localhost:8080/qsallcomponents-jee/services/rest/'
+  - url: 'http://localhost:8080/qsallcomponents-jee/'
     description: Localhost
+
 paths:
+  /administration/userRole:
+    $ref: 'api/Administration.yml#/default'
   /administration/permissions:
     $ref: 'api/Administration.yml#/permissions'
   /administration/test:
     $ref: 'api/Administration.yml#/test'
 
-  /branches/{name}:
+  /branches/branch:
     $ref: 'api/Branch.yml#/default'
-  /branches/{name}/insert:
-    $ref: 'api/Branch.yml#/insert'
-  /branches/{name}/delete:
-    $ref: 'api/Branch.yml#/delete'
-  /branches/{name}/update:
-    $ref: 'api/Branch.yml#/update'
-  /branches/{name}/search:
+  /branches/branch/search:
     $ref: 'api/Branch.yml#/search'
-  /branches/{name}/advancedsearch:
+  /branches/branch/advancedsearch:
     $ref: 'api/Branch.yml#/advancedsearch'
   /branches/plan:
     $ref: 'api/Branch.yml#/plan'
@@ -35,84 +32,37 @@ paths:
   /config/search:
     $ref: 'api/Config.yml#/search'
 
-  /customers/{name}:
+  /customers/customer:
     $ref: 'api/Customer.yml#/default'
-  /customers/{name}/insert:
-    $ref: 'api/Customer.yml#/insert'
-  /customers/{name}/delete:
-    $ref: 'api/Customer.yml#/delete'
-  /customers/{name}/update:
-    $ref: 'api/Customer.yml#/update'
-  /customers/{name}/search:
+  /customers/customer/search:
     $ref: 'api/Customer.yml#/search'
-  /customers/{name}/advancedsearch:
+  /customers/customer/advancedsearch:
     $ref: 'api/Customer.yml#/advancedsearch'
-  /customers/{extension}/{id}:
-    $ref: 'api/Customer.yml#/downloadfile'
-  /customers/{name}/{extension}:
-    $ref: 'api/Customer.yml#/export'
 
   /dummy:
     $ref: 'api/Dummy.yml#/default'
   /dummy/dummypermission:
     $ref: 'api/Dummy.yml#/dummypermission'
 
-  /employees/{name}:
+  /employees/employee:
     $ref: 'api/Employee.yml#/default'
-  /employees/{name}/insert:
-    $ref: 'api/Employee.yml#/insert'
-  /employees/{name}/delete:
-    $ref: 'api/Employee.yml#/delete'
-  /employees/{name}/update:
-    $ref: 'api/Employee.yml#/update'
-  /employees/{name}/search:
+  /employees/employee/search:
     $ref: 'api/Employee.yml#/search'
-  /employees/{name}/advancedsearch:
+  /employees/employee/advancedsearch:
     $ref: 'api/Employee.yml#/advancedsearch'
 
-  /filemanager/queryFiles/{workspaceId}:
-    $ref: 'api/FileManager.yml#/queryfiles'
-  /filemanager/getFile/{fileId}:
-    $ref: 'api/FileManager.yml#/getfile'
-  /filemanager/getFiles/{workspaceId}:
-    $ref: 'api/FileManager.yml#/getfiles'
-  /filemanager/getZipFile/{file}:
-    $ref: 'api/FileManager.yml#/getzipfile'
-  /filemanager/insertFile/{workspaceId}:
-    $ref: 'api/FileManager.yml#/insertfile'
-  /filemanager/deleteFiles/{workspaceId}:
-    $ref: 'api/FileManager.yml#/deletefiles'
-  /filemanager/insertFolder/{workspaceId}/{name}:
-    $ref: 'api/FileManager.yml#/insertfolder'
-  /filemanager/fileUpdate:
-    $ref: 'api/FileManager.yml#/fileUpdate'
-  /filemanager/createDocument/{name}:
-    $ref: 'api/FileManager.yml#/createdocument'
-
-  /movements/{name}:
+  /movements/movement:
     $ref: 'api/Movement.yml#/default'
-  /movements/{name}/insert:
-    $ref: 'api/Movement.yml#/insert'
-  /movements/{name}/delete:
-    $ref: 'api/Movement.yml#/delete'
-  /movements/{name}/update:
-    $ref: 'api/Movement.yml#/update'
-  /movements/{name}/search:
+  /movements/movement/search:
     $ref: 'api/Movement.yml#/search'
-  /movements/{name}/advancedsearch:
+  /movements/movement/advancedsearch:
     $ref: 'api/Movement.yml#/advancedsearch'
 
-  /users/{name}:
+  /users/user:
     $ref: 'api/User.yml#/default'
-  /users/{name}/insert:
-    $ref: 'api/User.yml#/insert'
-  /users/{name}/delete:
-    $ref: 'api/User.yml#/delete'
-  /users/{name}/update:
-    $ref: 'api/User.yml#/update'
-  /users/{name}/search:
+  /users/user/search:
     $ref: 'api/User.yml#/search'
-  /users/{name}/advancedsearch:
+  /users/user/advancedsearch:
     $ref: 'api/User.yml#/advancedsearch'
   /users/login:
     $ref: 'api/User.yml#/login'

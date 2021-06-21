@@ -1,11 +1,88 @@
+default:
+  get:
+    tags:
+      - Administration
+    summary: Returns a list of UserRoles.
+    description: >
+      This resource represents a list of user roles in the system.
+    x-restcontroller: orestcontroller
+    parameters:
+      - in: query
+        name: filter
+        description: Filter
+        schema:
+          type: string
+        required: false
+        examples:
+          id_user_role:
+            value: 'ID_USER_ROLE=1'
+          id_rolename:
+            value: 'ID_ROLENAME=1'
+          user_:
+            value: 'USER_=demo'
+      - in: query
+        name: columns
+        description: Columns
+        required: false
+        schema:
+          type: string
+          example: ID_USER_ROLE,ID_ROLENAME,USER_ 
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
+search:
+  post:
+    tags:
+      - Administration
+    summary: Searchs and returns a list of UserRoles.
+    description: >
+      This resource represents a list of user roles in the system.
+    x-restcontroller: orestcontroller
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../base/QueryParameter.yml#/components/schemas/QueryParameter'
+          examples:
+            id_role_name:
+              value:
+                filter:
+                  ID_ROLE_NAME: 0
+                columns:
+                  - ID_USER_ROLE
+                  - ID_ROLENAME
+                  - USER_
+                sqltypes:
+                  ID_ROLE_NAME: 4
+    responses:
+      '200':
+        $ref: '../base/Responses.yml#/components/responses/EntityResult'
+      '400':
+        $ref: '../base/Responses.yml#/components/responses/BadRequest'
+      '401':
+        $ref: '../base/Responses.yml#/components/responses/Unauthorized'
+      '404':
+        $ref: '../base/Responses.yml#/components/responses/NotFound'
+      default:
+        $ref: '../base/Responses.yml#/components/responses/Unexpected'
+
 permissions:
   get:
     operationId: permissions 
     tags:
       - Administration
-    summary: .
+    summary: Permissions
     description: >
-      .
+      Permissions
     x-hasparentpath: true
     responses:
       '200':
@@ -28,9 +105,9 @@ test:
     operationId: test 
     tags:
       - Administration
-    summary: .
+    summary: Test
     description: >
-      .
+      Test
     x-hasparentpath: true
     parameters: 
       - in: query
@@ -39,6 +116,7 @@ test:
         schema:
           type: string
           default: 'unknown'
+          example: 'unknown'
         required: false
     responses:
       '200':

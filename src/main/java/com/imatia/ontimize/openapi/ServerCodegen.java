@@ -189,24 +189,25 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 			if (extension.equals("orestcontroller")) {
 				this.addDependency("com.ontimize.jee", "ontimize-jee-server-rest");
+				this.addInternalParam(operation, "name", "String", "path");
 
-				if (path.endsWith("/{name}")) {
+				if ("GET".equalsIgnoreCase(httpMethod)) {
 					operation.setOperationId("query");
-				} else if (path.endsWith("/{name}/search")) {
-					operation.setOperationId("query");
-					this.addItem(extensions, X_BODY_NAME, "queryParameter");
-					this.addItem(extensions, X_THROWS, "Exception");
-				} else if (path.endsWith("/{name}/advancedsearch")) {
+				} else if (path.endsWith("/search")) {
 					operation.setOperationId("query");
 					this.addItem(extensions, X_BODY_NAME, "queryParameter");
 					this.addItem(extensions, X_THROWS, "Exception");
-				} else if (path.endsWith("/{name}/delete")) {
+				} else if (path.endsWith("/advancedsearch")) {
+					operation.setOperationId("query");
+					this.addItem(extensions, X_BODY_NAME, "queryParameter");
+					this.addItem(extensions, X_THROWS, "Exception");
+				} else if ("DELETE".equalsIgnoreCase(httpMethod)) {
 					operation.setOperationId("delete");
 					this.addItem(extensions, X_BODY_NAME, "deleteParameter");
-				} else if (path.endsWith("/{name}/insert")) {
+				} else if ("POST".equalsIgnoreCase(httpMethod)) {
 					operation.setOperationId("insert");
 					this.addItem(extensions, X_BODY_NAME, "insertParameter");
-				} else if (path.endsWith("/{name}/update")) {
+				} else if ("PUT".equalsIgnoreCase(httpMethod)) {
 					operation.setOperationId("update");
 					this.addItem(extensions, X_BODY_NAME, "updateParameter");
 				}
@@ -401,6 +402,8 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		this.importMapping.put("DocumentIdentifier", "com.ontimize.jee.common.services.dms.DocumentIdentifier");
 
 		this.importMapping.put("SQLOrder", "com.ontimize.db.SQLStatementBuilder.SQLOrder");
+
+		this.importMapping.put("MultipartFiles", "java.util.List<org.springframework.web.multipart.MultipartFile>");
 	}
 
 	@Override
@@ -425,6 +428,10 @@ public class ServerCodegen extends AbstractJavaCodegen {
 	}
 
 	private void addInternalParam(Operation co, String name, String type) {
+		this.addInternalParam(co,name, type, "query");
+	}
+
+	private void addInternalParam(Operation co, String name, String type, String in) {
 		Schema schema = new Schema();
 		schema.setName(name);
 		schema.setType(type);
@@ -432,8 +439,9 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		Parameter parameter = new Parameter();
 		parameter.setName(name);
 		parameter.setSchema(schema);
+		parameter.setIn(in);
 
-		co.getParameters().add(parameter);
+		co.addParametersItem(parameter);
 	}
 
 	private void addItem(java.util.Map<String, Object> map, String key, Object value) {

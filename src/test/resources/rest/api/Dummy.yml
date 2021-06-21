@@ -3,9 +3,9 @@ default:
     operationId: dummyTest
     tags:
       - Dummy
-    summary: .
+    summary: Test
     description: >
-      .
+      Develop purposes only.
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -23,9 +23,9 @@ dummypermission:
     operationId: dummyPermission
     tags:
       - Dummy
-    summary: .
+    summary: Permission
     description: >
-      .
+      Develop purposes only.
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

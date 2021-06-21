@@ -25,12 +25,12 @@
 
 	<distributionManagement>
 		<repository>
-			<id>imatia-artifactory-imatia-local</id>
+			<id>imatia-artifactory</id>
 			<name>plugins-release</name>
 			<url>https://artifactory.imatia.com/artifactory/plugins-imatia-local</url>
 		</repository>
 		<snapshotRepository>
-			<id>imatia-artifactory-imatia-local</id>
+			<id>imatia-artifactory</id>
 			<name>plugins-release</name>
 			<url>https://artifactory.imatia.com/artifactory/plugins-imatia-local</url>
 		</snapshotRepository>

@@ -383,8 +383,10 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 		this.importMapping.put("Void", "java.lang.Void");
 
-		//this.importMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
-		//this.importMapping.put("EntityResult", "com.ontimize.db.EntityResult");
+		/*
+		this.importMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
+		this.importMapping.put("EntityResult", "com.ontimize.db.EntityResult");
+		*/
 		this.importMapping.put("AdvancedEntityResult", "com.ontimize.jee.common.db.AdvancedEntityResult");
 		this.importMapping.put("EntityResult", "com.ontimize.jee.common.dto.EntityResult");
 
@@ -402,8 +404,6 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		this.importMapping.put("DocumentIdentifier", "com.ontimize.jee.common.services.dms.DocumentIdentifier");
 
 		this.importMapping.put("SQLOrder", "com.ontimize.db.SQLStatementBuilder.SQLOrder");
-
-		this.importMapping.put("MultipartFiles", "java.util.List<org.springframework.web.multipart.MultipartFile>");
 	}
 
 	@Override

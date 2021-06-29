@@ -343,27 +343,27 @@ plan:
     x-hasparentpath: true
     x-throws: 'java.io.IOException, com.fasterxml.jackson.core.JsonParseException, com.fasterxml.jackson.databind.JsonMappingException'
     x-codegen-request-body-name: 'files'
-    parameters: 
-      - in: query
-        name: names
-        description: the names
-        schema:
-          type: array
-          items:
-            type: string
-          example:
-            - 'File upload test #1'
-        required: true
-      - in: query
-        name: data
-        description: the data
-        schema:
-          type: string
-          example:
-            OFFICEID: '0005'
-        required: false
     requestBody:
-      $ref: '../base/MultipartFiles.yml#/components/requestBodies/MultipartFiles'
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              names:
+                description: the names
+                type: array
+                items:
+                  type: string
+                example:
+                  - 'File upload test #1'
+              files:
+                description: the files
+                $ref: '../base/MultipartFiles.yml#/components/schemas/MultipartFiles'
+              data:
+                description: the data
+                type: string
+                example:
+                  OFFICEID: '0005'
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

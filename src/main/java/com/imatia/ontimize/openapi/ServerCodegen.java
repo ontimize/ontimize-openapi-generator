@@ -127,15 +127,6 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		this.modelPackage = "com.imatia.ontimize.model";
 
 		/**
-		 * Reserved words.  Override this with reserved words specific to your language
-		 */
-		this.reservedWords = new HashSet<String> (
-				Arrays.asList(
-						"sample1",  // replace with static values
-						"sample2")
-				);
-
-		/**
 		 * Additional Properties.  These values can be passed to the templates and
 		 * are available in models, apis, and supporting files
 		 */
@@ -189,7 +180,7 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 			if (extension.equals("orestcontroller")) {
 				this.addDependency("com.ontimize.jee", "ontimize-jee-server-rest");
-				this.addInternalParam(operation, "name", "String", "path");
+				this.addInternalParam(operation, "name", "string", "path");
 
 				if ("GET".equalsIgnoreCase(httpMethod)) {
 					operation.setOperationId("query");

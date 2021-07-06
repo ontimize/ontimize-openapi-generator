@@ -2,6 +2,7 @@ package com.imatia.ontimize.openapi;
 
 import org.junit.Test;
 import org.openapitools.codegen.ClientOptInput;
+import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.DefaultGenerator;
 import org.openapitools.codegen.config.CodegenConfigurator;
 
@@ -27,7 +28,10 @@ public class ServerCodegenTest {
 				.setGeneratorName("ontimize-server") // use this codegen library
 				.setInputSpec("src/test/resources/rest/openapi-rest.yml") // sample OpenAPI file
 				// .setInputSpec("https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml") // or from the server
-				.setOutputDir("target/server"); // output directory
+				.addSystemProperty(CodegenConstants.APIS, "") // Process all APIs
+				.addAdditionalProperty(CodegenConstants.SOURCE_FOLDER, "")
+				.setApiPackage(null)
+				.setOutputDir("target/generated-sources"); // output directory
 
 		final ClientOptInput clientOptInput = configurator.toClientOptInput();
 

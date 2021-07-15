@@ -1,4 +1,4 @@
-package com.imatia.ontimize.openapi;
+package com.ontimize.openapi;
 
 import org.junit.Test;
 import org.openapitools.codegen.ClientOptInput;

@@ -12,25 +12,27 @@ default:
         application/json:
           schema:
             $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
-          example:
-            data:
-              EMPLOYEETYPEID: 6380
-              EMPLOYEENAME: 'Christopher'
-              EMPLOYEESURNAME: 'Burdock'
-              EMPLOYEEADDRESS: '46th & 48th Street, 156 Avenue, San Andres Colony. London'
-              EMPLOYEESTARTDATE: '2009-06-10'
-              EMPLOYEEEMAIL: 'Christopher.Burdock@hotmail.com'
-              OFFICEID: '0103'
-              EMPLOYEEPHONE: '0800 177 7086'
-            sqltypes:
-              EMPLOYEETYPEID: 4
-              EMPLOYEENAME: 12
-              EMPLOYEESURNAME: 12
-              EMPLOYEEADDRESS: 12
-              EMPLOYEESTARTDATE: 93
-              EMPLOYEEEMAIL: 12
-              OFFICEID: 12
-              EMPLOYEEPHONE: 12
+          examples:
+            Christopher Burdock:
+              value:
+                data:
+                  EMPLOYEETYPEID: 6380
+                  EMPLOYEENAME: 'Christopher'
+                  EMPLOYEESURNAME: 'Burdock'
+                  EMPLOYEEADDRESS: '46th & 48th Street, 156 Avenue, San Andres Colony. London'
+                  EMPLOYEESTARTDATE: '2009-06-10'
+                  EMPLOYEEEMAIL: 'Christopher.Burdock@hotmail.com'
+                  OFFICEID: '0103'
+                  EMPLOYEEPHONE: '0800 177 7086'
+                sqltypes:
+                  EMPLOYEETYPEID: 4
+                  EMPLOYEENAME: 12
+                  EMPLOYEESURNAME: 12
+                  EMPLOYEEADDRESS: 12
+                  EMPLOYEESTARTDATE: 93
+                  EMPLOYEEEMAIL: 12
+                  OFFICEID: 12
+                  EMPLOYEEPHONE: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

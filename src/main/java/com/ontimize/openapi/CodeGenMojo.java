@@ -1,4 +1,4 @@
-package com.imatia.ontimize.openapi;
+package com.ontimize.openapi;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -149,6 +149,7 @@ public class CodeGenMojo extends AbstractMojo {
 				.setGeneratorName("ontimize-server")
 				.setOutputDir(output.getAbsolutePath())
 				.addAdditionalProperty(CodegenConstants.SOURCE_FOLDER, "java")
+				.addSystemProperty(CodegenConstants.MODELS, "") // Empty means "All models"
 				.addSystemProperty(CodegenConstants.APIS, ""); // Empty means "All APIs" 
 
             if (isNotEmpty(this.auth)) {
@@ -161,6 +162,7 @@ public class CodeGenMojo extends AbstractMojo {
 
             if (isNotEmpty(this.packageName)) {
 				configurator.setApiPackage(this.packageName);
+				configurator.setModelPackage(this.packageName + ".model");
 			}
 
 			final ClientOptInput input = configurator.toClientOptInput();

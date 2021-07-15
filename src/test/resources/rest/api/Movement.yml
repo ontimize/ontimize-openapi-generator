@@ -12,24 +12,26 @@ default:
         application/json:
           schema:
             $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
-          example:
-            data:
-              ACCOUNTID: 2
-              DATE_: '2081-01-23T12:37:38Z'
-              CONCEPT: 'First movement'
-              MOVEMENTTYPEID: 1
-              MOVEMENT: 986.64
-              CONCEPT_EN_US: 'First movement'
-              CONCEPT_ES_ES: 'Primer movimiento'
-            sqltypes:
-              MOVEMENTID: 4
-              ACCOUNTID: 4
-              DATE_: 93
-              CONCEPT: 12
-              MOVEMENTTYPEID: 4
-              MOVEMENT: 8
-              CONCEPT_EN_US: 12
-              CONCEPT_ES_ES: 12
+          examples:
+            First movement:
+              value:
+                data:
+                  ACCOUNTID: 2
+                  DATE_: '2081-01-23T12:37:38Z'
+                  CONCEPT: 'First movement'
+                  MOVEMENTTYPEID: 1
+                  MOVEMENT: 986.64
+                  CONCEPT_EN_US: 'First movement'
+                  CONCEPT_ES_ES: 'Primer movimiento'
+                sqltypes:
+                  MOVEMENTID: 4
+                  ACCOUNTID: 4
+                  DATE_: 93
+                  CONCEPT: 12
+                  MOVEMENTTYPEID: 4
+                  MOVEMENT: 8
+                  CONCEPT_EN_US: 12
+                  CONCEPT_ES_ES: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

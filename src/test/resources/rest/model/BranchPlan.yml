@@ -1,0 +1,16 @@
+components:
+  schemas:
+    BranchPlan:
+      type: object
+      properties:
+        names:
+          description: the names
+          type: array
+          items:
+            type: string
+        files:
+          description: the files
+          $ref: '../base/MultipartFiles.yml#/components/schemas/MultipartFiles'
+        data:
+          description: the data
+          type: string

@@ -1,4 +1,4 @@
-package com.imatia.ontimize.openapi;
+package com.ontimize.openapi;
 
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.escape;
@@ -119,12 +119,12 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		/**
 		 * Api Package.  Optional, if needed, this can be used in templates
 		 */
-		this.apiPackage = "com.imatia.ontimize.api";
+		this.apiPackage = "com.ontimize.api";
 
 		/**
 		 * Model Package.  Optional, if needed, this can be used in templates
 		 */
-		this.modelPackage = "com.imatia.ontimize.model";
+		this.modelPackage = "com.ontimize.model";
 
 		/**
 		 * Additional Properties.  These values can be passed to the templates and
@@ -265,7 +265,23 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		return super.fromOperation(path, httpMethod, operation, servers);
 	}
 
-	@Override
+    @Override
+    public String getSchemaType(Schema p) {
+        String openAPIType = super.getSchemaType(p);
+
+        // don't apply renaming on types from the typeMapping
+        if (this.modelPackage != null && !this.modelPackage.isEmpty()
+				&& !this.modelPackage.equals(this.apiPackage)
+				&& !this.typeMapping.containsValue(openAPIType)
+				&& !this.importMapping.containsValue(openAPIType)) {
+
+            openAPIType = this.modelPackage + "." + openAPIType;
+        }
+
+        return openAPIType;
+    }
+
+    @Override
 	public String getTypeDeclaration(Schema p) {
 		if (p == null) {
 			LOGGER.warn("Null schema found. Default type to `NULL_SCHEMA_ERR`");
@@ -397,6 +413,7 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		this.importMapping.put("SQLOrder", "com.ontimize.db.SQLStatementBuilder.SQLOrder");
 	}
 
+	/*
 	@Override
 	public String toDefaultValue(Schema schema) {
 		if (schema.getDefault() != null) {
@@ -405,6 +422,7 @@ public class ServerCodegen extends AbstractJavaCodegen {
 
 		return null;
 	}
+	 */
 
 	public void addDependency(String groupId, String artifactId) {
 		Map<String, Object> dependency = new HashMap<>();

@@ -12,39 +12,41 @@ default:
         application/json:
           schema:
             $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
-          example:
-            data:
-              OFFICEID: '0005'
-              NAME: 'BCMR Market Service Centre'
-              ADDRESS: 'Centro City 11 Trump st.'
-              STARTDATE: '1993-04-05'
-              PHONE: '+27 11 490 8111'
-              ADDRESS_EN_US: 'Centro City 11 Trump st.'
-              ADDRESS_ES_ES: 'Centro City 11 Trump st.'
-              ADDRESS_GL_ES: 'Centro City 11 Trump st.'
-              NAME_EN_US: 'BCMR Market Service Centre'
-              NAME_ES_ES: 'BCMR Market Service Centre'
-              NAME_GL_ES: 'BCMR Market Service Centre'
-              BRANCH_PLAN: '0070.png'
-              MINLONGITUDE: 28.037819882305143E0
-              MINLATITUDE: 40.473897513466376E0
-              COUNTRY: 'South Africa'
-            sqltypes:
-              OFFICEID: 12
-              NAME: 12
-              ADDRESS: 12
-              STARTDATE: 91
-              PHONE: 12
-              ADDRESS_EN_US: 12
-              ADDRESS_ES_ES: 12
-              ADDRESS_GL_ES: 12
-              NAME_EN_US: 12
-              NAME_ES_ES: 12
-              NAME_GL_ES: 12
-              BRANCH_PLAN: 12
-              MINLONGITUDE: 8
-              MINLATITUDE: 8
-              COUNTRY: 12
+          examples:
+            BCMR Market Service Centre:
+              value:
+                data:
+                  OFFICEID: '0005'
+                  NAME: 'BCMR Market Service Centre'
+                  ADDRESS: 'Centro City 11 Trump st.'
+                  STARTDATE: '1993-04-05'
+                  PHONE: '+27 11 490 8111'
+                  ADDRESS_EN_US: 'Centro City 11 Trump st.'
+                  ADDRESS_ES_ES: 'Centro City 11 Trump st.'
+                  ADDRESS_GL_ES: 'Centro City 11 Trump st.'
+                  NAME_EN_US: 'BCMR Market Service Centre'
+                  NAME_ES_ES: 'BCMR Market Service Centre'
+                  NAME_GL_ES: 'BCMR Market Service Centre'
+                  BRANCH_PLAN: '0070.png'
+                  MINLONGITUDE: 28.037819882305143E0
+                  MINLATITUDE: 40.473897513466376E0
+                  COUNTRY: 'South Africa'
+                sqltypes:
+                  OFFICEID: 12
+                  NAME: 12
+                  ADDRESS: 12
+                  STARTDATE: 91
+                  PHONE: 12
+                  ADDRESS_EN_US: 12
+                  ADDRESS_ES_ES: 12
+                  ADDRESS_GL_ES: 12
+                  NAME_EN_US: 12
+                  NAME_ES_ES: 12
+                  NAME_GL_ES: 12
+                  BRANCH_PLAN: 12
+                  MINLONGITUDE: 8
+                  MINLATITUDE: 8
+                  COUNTRY: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -337,32 +339,24 @@ plan:
     operationId: plan 
     tags:
       - Branches
-    summary: .
+    summary: Upload files
     description: >
-      .
+      Upload files.
     x-hasparentpath: true
     x-throws: 'java.io.IOException, com.fasterxml.jackson.core.JsonParseException, com.fasterxml.jackson.databind.JsonMappingException'
     x-codegen-request-body-name: 'files'
     requestBody:
+      required: true
       content:
         multipart/form-data:
           schema:
-            type: object
-            properties:
-              names:
-                description: the names
-                type: array
-                items:
-                  type: string
-                example:
+            $ref: '../model/BranchPlan.yml#/components/schemas/BranchPlan'
+          examples:
+            File upload:
+              value:
+                names:
                   - 'File upload test #1'
-              files:
-                description: the files
-                $ref: '../base/MultipartFiles.yml#/components/schemas/MultipartFiles'
-              data:
-                description: the data
-                type: string
-                example:
+                data:
                   OFFICEID: '0005'
     responses:
       '200':

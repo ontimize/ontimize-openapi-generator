@@ -12,44 +12,46 @@ default:
         application/json:
           schema:
             $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
-          example:
-            data:
-              CUSTOMERTYPEID: '3'
-              NAME: 'Laura'
-              ADDRESS: '22 Holloway Road'
-              COMMENTS: 'VIP'
-              STARTDATE: '2009-10-06'
-              SURNAME: 'Bugle'
-              ID: '11111111H'
-              EMAIL: 'laurabugle@yopmail.com'
-              COMMENTS_EN_US: 'VIP'
-              COMMENTS_ES_ES: 'VIP'
-              COMMENTS_GL_ES: 'VIP'
-              LONGITUDE: -0.1241922E0
-              LATITUDE: 51.5245879E0
-              ID_DMS_DOC: 5
-              COUNTRY: 'Germany'
-              STATE: 'Berlin'
-              ZIPCODE: '10115'
-            sqltypes:
-              CUSTOMERID: 4
-              CUSTOMERTYPEID: 4
-              NAME: 12
-              ADDRESS: 12
-              COMMENTS: 12
-              STARTDATE: 93
-              SURNAME: 12
-              ID: 12
-              EMAIL: 12
-              COMMENTS_EN_US: 12
-              COMMENTS_ES_ES: 12
-              COMMENTS_GL_ES: 12
-              LONGITUDE: 8
-              LATITUDE: 8
-              ID_DMS_DOC: 4
-              COUNTRY: 12
-              STATE: 12
-              ZIPCODE: 12
+          examples:
+            Laura Bugle:
+              value:
+                data:
+                  CUSTOMERTYPEID: '3'
+                  NAME: 'Laura'
+                  ADDRESS: '22 Holloway Road'
+                  COMMENTS: 'VIP'
+                  STARTDATE: '2009-10-06'
+                  SURNAME: 'Bugle'
+                  ID: '11111111H'
+                  EMAIL: 'laurabugle@yopmail.com'
+                  COMMENTS_EN_US: 'VIP'
+                  COMMENTS_ES_ES: 'VIP'
+                  COMMENTS_GL_ES: 'VIP'
+                  LONGITUDE: -0.1241922E0
+                  LATITUDE: 51.5245879E0
+                  ID_DMS_DOC: 5
+                  COUNTRY: 'Germany'
+                  STATE: 'Berlin'
+                  ZIPCODE: '10115'
+                sqltypes:
+                  CUSTOMERID: 4
+                  CUSTOMERTYPEID: 4
+                  NAME: 12
+                  ADDRESS: 12
+                  COMMENTS: 12
+                  STARTDATE: 93
+                  SURNAME: 12
+                  ID: 12
+                  EMAIL: 12
+                  COMMENTS_EN_US: 12
+                  COMMENTS_ES_ES: 12
+                  COMMENTS_GL_ES: 12
+                  LONGITUDE: 8
+                  LATITUDE: 8
+                  ID_DMS_DOC: 4
+                  COUNTRY: 12
+                  STATE: 12
+                  ZIPCODE: 12
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'

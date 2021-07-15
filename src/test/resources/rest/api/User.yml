@@ -12,27 +12,29 @@ default:
         application/json:
           schema:
             $ref: '../base/InsertParameter.yml#/components/schemas/InsertParameter'
-          example:
-            data:
-              USER_: 'laura'
-              PASSWORD: '1432'
-              NAME: 'Laura'
-              SURNAME: 'Bugle'
-              EMAIL: 'laurabugle@gmail.com'
-              NIF: '11111111H'
-              USERBLOCKED: '2016-09-19T12:00:00Z'
-              LASTPASSWORDUPDATE: '2015-12-01T12:00:00'
-              FIRSTLOGIN: FALSE
-            sqltypes:
-              USER_: 12
-              PASSWORD: 12
-              NAME: 12
-              SURNAME: 12
-              EMAIL: 12
-              NIF: 12
-              USERBLOCKED: 93
-              LASTPASSWORDUPDATE: 93
-              FIRSTLOGIN: 16
+          examples:
+            Laura Bugle:
+              value:
+                data:
+                  USER_: 'laura'
+                  PASSWORD: '1432'
+                  NAME: 'Laura'
+                  SURNAME: 'Bugle'
+                  EMAIL: 'laurabugle@gmail.com'
+                  NIF: '11111111H'
+                  USERBLOCKED: '2016-09-19T12:00:00Z'
+                  LASTPASSWORDUPDATE: '2021-06-01T12:00:00'
+                  FIRSTLOGIN: true
+                sqltypes:
+                  USER_: 12
+                  PASSWORD: 12
+                  NAME: 12
+                  SURNAME: 12
+                  EMAIL: 12
+                  NIF: 12
+                  USERBLOCKED: 93
+                  LASTPASSWORDUPDATE: 93
+                  FIRSTLOGIN: 16
     responses:
       '200':
         $ref: '../base/Responses.yml#/components/responses/EntityResult'
@@ -63,7 +65,7 @@ default:
           user_:
             value: 'USER_=laura'
           password:
-            value: 'PASSWORD=demouser'
+            value: 'PASSWORD=1432'
           name:
             value: 'NAME=Laura'
           surname:

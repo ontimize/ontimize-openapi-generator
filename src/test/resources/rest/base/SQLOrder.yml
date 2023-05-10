@@ -4,7 +4,7 @@ components:
       type: object
       properties:
         columnName:
-          description: Column Name
+          description: Column name
           type: string
         ascendent:
           description: Ascendent

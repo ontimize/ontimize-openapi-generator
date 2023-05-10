@@ -14,18 +14,18 @@ components:
           items:
             type: string
         sqltypes:
-          description: SQL Types
+          description: SQL types
           type: object
           additionalProperties:
             type: string
         pageSize:
-          description: Page Size
+          description: Page size
           type: integer
         offset:
           description: Offset
           type: integer
         orderBy:
-          description: Order By
+          description: Order by
           type: array
           items:
             $ref: 'SQLOrder.yml#/components/schemas/SQLOrder'

@@ -20,6 +20,18 @@ components:
         application/json:
           schema:
             $ref: 'Void.yml#/components/schemas/Void'
+    Object:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: 'Object.yml#/components/schemas/Object'
+    String:
+      description: OK
+      content:
+        application/text:
+          schema:
+            $ref: 'String.yml#/components/schemas/String'
     BadRequest:
       description: Bad request
     NotFound:

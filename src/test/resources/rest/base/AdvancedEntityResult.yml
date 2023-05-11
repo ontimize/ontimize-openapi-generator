@@ -32,7 +32,7 @@ components:
           additionalProperties:
             type: integer
         operationId:
-          description: Operation Id
+          description: Operation id
           type: string
         startRecordIndex:
           description: Start record index

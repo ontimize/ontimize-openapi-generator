@@ -61,6 +61,7 @@
 		<!-- =========================================================== -->
 		<maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
 		<maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+		<maven.dependency.plugin.version>3.5.0</maven.dependency.plugin.version>
 		<maven.jar.plugin.version>2.2</maven.jar.plugin.version>
 		<maven.surefire.plugin.version>2.12</maven.surefire.plugin.version>
 		<maven.enforcer.plugin.version>3.0.0-M1</maven.enforcer.plugin.version>
@@ -79,6 +80,7 @@
 		<maven.plugin.api.version>3.3.1</maven.plugin.api.version>
 		<maven.plugin.annotations.version>3.4</maven.plugin.annotations.version>
 		<plexus.build.api.version>0.0.7</plexus.build.api.version>
+		<swagger-ui.version>4.18.2</swagger-ui.version>
 	</properties>
 
 	<prerequisites>
@@ -203,6 +205,39 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven.dependency.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>add-swagger-ui</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.webjars</groupId>
+									<artifactId>swagger-ui</artifactId>
+									<version>${swagger-ui.version}</version>
+									<type>jar</type>
+									<overWrite>false</overWrite>
+									<includes>META-INF/resources/webjars/swagger-ui/${swagger-ui.version}/*.*</includes>
+									<fileMappers>
+										<org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+											<pattern>^\QMETA-INF/resources/webjars/swagger-ui/${swagger-ui.version}/\E</pattern>
+											<replacement>./</replacement>
+										</org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+									</fileMappers>
+									<outputDirectory>${project.build.directory}/classes/swagger-ui</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -162,11 +162,10 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		co.baseName = tag;
 
 		if (this.searchItemValue(co.vendorExtensions, X_HAS_PARENT_PATH, true)) {
-			String path = "/" + tag.toLowerCase() + "/";
-			int pos = co.path.indexOf(path);
+			int pos = StringUtils.ordinalIndexOf(co.path, "/", 2);
 
 			if (pos >= 0) {
-				co.path = co.path.substring(pos + path.length() - 1);
+				co.path = co.path.substring(pos);
 			}
 		}
 	}
@@ -265,23 +264,39 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		return super.fromOperation(path, httpMethod, operation, servers);
 	}
 
-    @Override
-    public String getSchemaType(Schema p) {
-        String openAPIType = super.getSchemaType(p);
+	@Override
+	public String getSchemaType(Schema p) {
+		String openAPIType = super.getSchemaType(p);
 
-        // don't apply renaming on types from the typeMapping
-        if (this.modelPackage != null && !this.modelPackage.isEmpty()
+		// don't apply renaming on types from the typeMapping
+		if (this.modelPackage != null && !this.modelPackage.isEmpty()
 				&& !this.modelPackage.equals(this.apiPackage)
 				&& !this.typeMapping.containsValue(openAPIType)
 				&& !this.importMapping.containsValue(openAPIType)) {
 
-            openAPIType = this.modelPackage + "." + openAPIType;
-        }
+			openAPIType = this.modelPackage + "." + openAPIType;
+		}
 
-        return openAPIType;
-    }
+		return openAPIType;
+	}
 
-    @Override
+	@Override
+	public String getTypeDeclaration(String name) {
+		String typeDeclaration = super.getTypeDeclaration(name);
+
+		// don't apply renaming on types from the typeMapping
+		if (this.modelPackage != null && !this.modelPackage.isEmpty()
+				&& !this.modelPackage.equals(this.apiPackage)
+				&& !this.typeMapping.containsValue(typeDeclaration)
+				&& !this.importMapping.containsValue(typeDeclaration)) {
+
+			typeDeclaration = this.modelPackage + "." + typeDeclaration;
+		}
+
+		return typeDeclaration;
+	}
+
+	@Override
 	public String getTypeDeclaration(Schema p) {
 		if (p == null) {
 			LOGGER.warn("Null schema found. Default type to `NULL_SCHEMA_ERR`");
@@ -380,14 +395,14 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		this.modelDocTemplateFiles.remove("model_doc.mustache");
 		this.apiDocTemplateFiles.remove("api_doc.mustache");
 
-		this.importMapping.put("Number", "java.lang.Number");
-		this.importMapping.put("Void", "java.lang.Void");
-
 		this.typeMapping.remove("file");
 		this.typeMapping.put("file", "org.springframework.web.multipart.MultipartFile");
 
 		this.importMapping.put("HttpServletResponse", "javax.servlet.http.HttpServletResponse");
 
+		this.importMapping.put("Number", "java.lang.Number");
+		this.importMapping.put("Object", "java.lang.Object");
+		this.importMapping.put("String", "java.lang.String");
 		this.importMapping.put("Void", "java.lang.Void");
 
 		/*

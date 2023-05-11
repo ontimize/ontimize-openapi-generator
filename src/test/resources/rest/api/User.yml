@@ -2,9 +2,9 @@ default:
   post:
     tags:
       - Users
-    summary: Inserts an User.
+    summary: Inserts a User.
     description: >
-      This resource represents an user in the system.
+      This resource represents a User in the system.
     x-restcontroller: orestcontroller
     requestBody:
       required: true
@@ -96,9 +96,9 @@ default:
   put:
     tags:
       - Users
-    summary: Updates an User.
+    summary: Updates a User.
     description: >
-      This resource represents an user in the system.
+      This resource represents a User in the system.
     x-restcontroller: orestcontroller
     requestBody:
       required: true
@@ -138,9 +138,9 @@ default:
   delete:
     tags:
       - Users
-    summary: Deletes an User.
+    summary: Deletes a User.
     description: >
-      This resource represents an user in the system.
+      This resource represents a User in the system.
     x-restcontroller: orestcontroller
     requestBody:
       required: true

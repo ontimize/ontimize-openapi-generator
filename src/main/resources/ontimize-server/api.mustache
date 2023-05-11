@@ -34,8 +34,8 @@ public interface {{classname}} {
 	{{^vendorExtensions.x-restcontroller}}@RequestMapping(path = "{{path}}", method = RequestMethod.{{httpMethod}}{{#hasConsumes}},
 		consumes = { {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} }{{/hasConsumes}}{{#hasProduces}}, 
 		produces = { {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }{{/hasProduces}}){{/vendorExtensions.x-restcontroller}}
-	public {{>returnType}} {{operationId}}({{#vendorExtensions.x-restcontroller}}{{#allParams}}{{>baseParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}{{/vendorExtensions.x-restcontroller}}{{^vendorExtensions.x-restcontroller}}{{#allParams}}{{>pathParams}}{{>queryParams}}{{>formParams}}{{>bodyParams}}{{>internalParams}}{{#hasMore}}, 
-			{{/hasMore}}{{/allParams}}{{/vendorExtensions.x-restcontroller}}){{#vendorExtensions.x-throws}} throws {{vendorExtensions.x-throws}}{{/vendorExtensions.x-throws}};
+	public {{>returnType}} {{operationId}}({{#vendorExtensions.x-restcontroller}}{{#allParams}}{{^vendorExtensions.x-ignore}}{{>baseParams}}{{#hasMore}}, {{/hasMore}}{{/vendorExtensions.x-ignore}}{{/allParams}}{{/vendorExtensions.x-restcontroller}}{{^vendorExtensions.x-restcontroller}}{{#allParams}}{{^vendorExtensions.x-ignore}}{{>pathParams}}{{>queryParams}}{{>formParams}}{{>bodyParams}}{{>internalParams}}{{#hasMore}}, 
+			{{/hasMore}}{{/vendorExtensions.x-ignore}}{{/allParams}}{{/vendorExtensions.x-restcontroller}}){{#vendorExtensions.x-throws}} throws {{vendorExtensions.x-throws}}{{/vendorExtensions.x-throws}};
 	{{#hasMore}}
 
 	{{/hasMore}}

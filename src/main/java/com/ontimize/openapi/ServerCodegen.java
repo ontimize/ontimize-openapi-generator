@@ -131,6 +131,7 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		 * are available in models, apis, and supporting files
 		 */
 		this.additionalProperties.put("apiVersion", this.apiVersion);
+		this.additionalProperties.put("useBeanValidation", true);
 
 		/**
 		 * Supporting Files.  You can write single files for the generator with the

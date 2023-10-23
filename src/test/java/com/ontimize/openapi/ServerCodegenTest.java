@@ -28,9 +28,11 @@ public class ServerCodegenTest {
 				.setGeneratorName("ontimize-server") // use this codegen library
 				.setInputSpec("src/test/resources/rest/openapi-rest.yml") // sample OpenAPI file
 				// .setInputSpec("https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml") // or from the server
+				.addSystemProperty(CodegenConstants.MODELS, "") // Process all models
 				.addSystemProperty(CodegenConstants.APIS, "") // Process all APIs
 				.addAdditionalProperty(CodegenConstants.SOURCE_FOLDER, "")
-				.setApiPackage(null)
+				.setApiPackage("service")
+				.setModelPackage("model")
 				.setOutputDir("target/generated-sources"); // output directory
 
 		final ClientOptInput clientOptInput = configurator.toClientOptInput();

@@ -9,7 +9,8 @@
 
 
 ## [Unreleased]
-* **Changelog**: Added the CHANGELOG.md file.
+* **Open API:** Add bean validation support.
+* **Changelog:**: Added the CHANGELOG.md file.
 <!-- ### 🔧 Bug fixes: -->
 ## [1.0.3] - 2023-09-14
 ### Added ✔️
@@ -18,7 +19,7 @@
 * **Open API:** Fix the inclusion of Jackson annotations.
 ## [1.0.2] - 2023-05-11
 ### Added ✔️
-* **Swagger UI**: Added swagger-ui.
+* **Swagger UI:**: Added swagger-ui.
 <!-- ### 🔧 Bug fixes: -->
 ## 1.0.1 - 2021-09-14
 ### Added ✔️

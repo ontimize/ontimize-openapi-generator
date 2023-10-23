@@ -37,6 +37,7 @@ import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.DefaultGenerator;
 import org.openapitools.codegen.auth.AuthParser;
 import org.openapitools.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.languages.features.BeanValidationFeatures;
 import org.sonatype.plexus.build.incremental.BuildContext;
 import org.sonatype.plexus.build.incremental.DefaultBuildContext;
 
@@ -102,6 +103,12 @@ public class CodeGenMojo extends AbstractMojo {
 	 */
 	@Parameter(name = "skipIfSpecIsUnchanged", property = "ontimize.openapi.generator.maven.plugin.skipIfSpecIsUnchanged", defaultValue = "false")
 	private Boolean skipIfSpecIsUnchanged;
+
+	/**
+	 * Enables the bean validation
+	 */
+	@Parameter(name = "useBeanValidation", property = "ontimize.openapi.generator.maven.plugin.useBeanValidation", defaultValue = "false")
+	private Boolean useBeanValidation;
 
 	/**
 	 * Adds the Swagger UI 
@@ -180,7 +187,8 @@ public class CodeGenMojo extends AbstractMojo {
 				.setOutputDir(output.getAbsolutePath())
 				.addAdditionalProperty(CodegenConstants.SOURCE_FOLDER, "java")
 				.addSystemProperty(CodegenConstants.MODELS, "") // Empty means "All models"
-				.addSystemProperty(CodegenConstants.APIS, ""); // Empty means "All APIs" 
+				.addSystemProperty(CodegenConstants.APIS, "") // Empty means "All APIs"
+				.addAdditionalProperty(BeanValidationFeatures.USE_BEANVALIDATION, this.useBeanValidation);
 
 			if (isNotEmpty(this.auth)) {
 				configurator.setAuth(this.auth);

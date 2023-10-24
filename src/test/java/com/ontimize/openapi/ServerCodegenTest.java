@@ -5,6 +5,7 @@ import org.openapitools.codegen.ClientOptInput;
 import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.DefaultGenerator;
 import org.openapitools.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.languages.features.BeanValidationFeatures;
 
 /***
  * This test allows you to easily launch your code generation software under a debugger.
@@ -28,9 +29,12 @@ public class ServerCodegenTest {
 				.setGeneratorName("ontimize-server") // use this codegen library
 				.setInputSpec("src/test/resources/rest/openapi-rest.yml") // sample OpenAPI file
 				// .setInputSpec("https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml") // or from the server
+				.addSystemProperty(CodegenConstants.MODELS, "") // Process all models
 				.addSystemProperty(CodegenConstants.APIS, "") // Process all APIs
 				.addAdditionalProperty(CodegenConstants.SOURCE_FOLDER, "")
-				.setApiPackage(null)
+				.addAdditionalProperty(BeanValidationFeatures.USE_BEANVALIDATION, true)
+				.setApiPackage("service")
+				.setModelPackage("model")
 				.setOutputDir("target/generated-sources"); // output directory
 
 		final ClientOptInput clientOptInput = configurator.toClientOptInput();

@@ -2,7 +2,15 @@ package {{package}};
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+{{#useBeanValidation}}
+import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+{{/useBeanValidation}}
 
+{{#useBeanValidation}}
+@Validated
+{{/useBeanValidation}}
 {{#operations}}
 public interface {{classname}} {
 {{#operation}}

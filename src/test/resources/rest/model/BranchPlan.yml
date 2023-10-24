@@ -2,6 +2,9 @@ components:
   schemas:
     BranchPlan:
       type: object
+      required:
+        - names
+        - files
       properties:
         names:
           description: the names

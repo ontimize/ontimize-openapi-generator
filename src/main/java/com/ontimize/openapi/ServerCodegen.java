@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.CliOption;
@@ -43,6 +44,7 @@ public class ServerCodegen extends AbstractJavaCodegen {
 	private static final String X_EXTENDS = "x-extends";
 	private static final String X_HAS_PARENT_PATH = "x-hasparentpath";
 	private static final String X_IS_WILDCARD = "x-iswildcard";
+	private static final String X_IGNORE = "x-ignore";
 	private static final String X_REST_CONTROLLER = "x-restcontroller";
 	private static final String X_SUPER = "x-super";
 	private static final String X_THROWS = "x-throws";
@@ -259,6 +261,12 @@ public class ServerCodegen extends AbstractJavaCodegen {
 					this.addItem(extensions, X_BODY_NAME, "updateParameter");
 				}
 			}
+		}
+
+		final List<Parameter> parameters = operation.getParameters();
+		if (parameters != null) {
+			operation.setParameters(parameters.stream().filter((final Parameter parameter) ->
+					!this.searchItemValue(parameter.getExtensions(), X_IGNORE, true)).collect(Collectors.toList()));
 		}
 
 		return super.fromOperation(path, httpMethod, operation, servers);

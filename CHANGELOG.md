@@ -9,6 +9,9 @@
 
 
 ## [Unreleased]
+## [1.2.0] - 2024-04-12
+<!-- ### Changed 🛠️-->
+* **Swagger UI:**: Updated to 5.15 version.
 ## [1.1.0] - 2024-03-19
 ### Fixed 🐛
 * **Open API:** Fix ignored parameters issue.
@@ -31,7 +34,8 @@
 * **Maven:** Convert to Maven plugin.
 
 
-[unreleased]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.1.0...HEAD
+[unreleased]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.2.0...HEAD
+[1.1.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.2...1.0.3

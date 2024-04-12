@@ -117,7 +117,7 @@ public class CodeGenMojo extends AbstractMojo {
 	private Boolean swaggerUI;
 
 	/**
-	 * The the Swagger UI path
+	 * The Swagger UI path
 	 */
 	@Parameter(name = "swaggerUIPath", property = "ontimize.openapi.swagger-ui.path")
 	private String swaggerUIPath;

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ontimize</groupId>
 	<artifactId>ontimize-openapi-generator</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<packaging>maven-plugin</packaging>
 	<organization>
 		<name>Imatia Innovation</name>
@@ -80,7 +80,7 @@
 		<maven.plugin.api.version>3.3.1</maven.plugin.api.version>
 		<maven.plugin.annotations.version>3.4</maven.plugin.annotations.version>
 		<plexus.build.api.version>0.0.7</plexus.build.api.version>
-		<swagger-ui.version>4.18.2</swagger-ui.version>
+		<swagger-ui.version>5.15.0</swagger-ui.version>
 	</properties>
 
 	<prerequisites>
@@ -241,7 +241,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>generate-local-version</id>
@@ -297,7 +297,7 @@
 									<goal>sign</goal>
 								</goals>
 								<configuration>
-									<!-- Prevent gpg from using pinentry programs. Fixes: gpg: signing 
+									<!-- Prevent gpg from using pinentry programs. Fixes: gpg: signing
 										failed: Inappropriate ioctl for device -->
 									<gpgArguments>
 										<arg>--pinentry-mode</arg>

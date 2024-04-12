@@ -35,7 +35,7 @@
 
 
 [unreleased]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.2.0...HEAD
-[1.1.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.1.0...1.2.0
+[1.2.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.2...1.0.3

@@ -2,7 +2,7 @@ package com.ontimize.openapi;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.openapitools.codegen.config.CodegenConfiguratorUtils.applyImportMappingsKvpList;
+import static org.openapitools.codegen.config.CodegenConfiguratorUtils.applySchemaMappingsKvpList;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,6 +36,7 @@ import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.DefaultGenerator;
 import org.openapitools.codegen.auth.AuthParser;
 import org.openapitools.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.config.GlobalSettings;
 import org.openapitools.codegen.languages.features.BeanValidationFeatures;
 import org.sonatype.plexus.build.incremental.BuildContext;
 import org.sonatype.plexus.build.incremental.DefaultBuildContext;
@@ -186,16 +186,17 @@ public class CodeGenMojo extends AbstractMojo {
 				.setGeneratorName("ontimize-server")
 				.setOutputDir(output.getAbsolutePath())
 				.addAdditionalProperty(CodegenConstants.SOURCE_FOLDER, "java")
-				.addSystemProperty(CodegenConstants.MODELS, "") // Empty means "All models"
-				.addSystemProperty(CodegenConstants.APIS, "") // Empty means "All APIs"
 				.addAdditionalProperty(BeanValidationFeatures.USE_BEANVALIDATION, this.useBeanValidation);
+
+			GlobalSettings.setProperty(CodegenConstants.MODELS, ""); // Process all models
+			GlobalSettings.setProperty(CodegenConstants.APIS, ""); // Process all APIs
 
 			if (isNotEmpty(this.auth)) {
 				configurator.setAuth(this.auth);
 			}
 
 			if (this.importMappings != null) {
-				applyImportMappingsKvpList(this.importMappings, configurator);
+				applySchemaMappingsKvpList(this.importMappings, configurator);
 			}
 
 			if (isNotEmpty(this.packageName)) {

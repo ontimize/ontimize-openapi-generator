@@ -9,9 +9,11 @@
 
 
 ## [Unreleased]
+<!-- ### Changed 🛠️-->
+* **OpenAPI generator:**: Upgraded to 6.5.0 version.
 ## [1.2.0] - 2024-04-12
 <!-- ### Changed 🛠️-->
-* **Swagger UI:**: Updated to 5.15 version.
+* **Swagger UI:**: Upgraded to 5.15 version.
 ## [1.1.0] - 2024-03-19
 ### Fixed 🐛
 * **Open API:** Fix ignored parameters issue.

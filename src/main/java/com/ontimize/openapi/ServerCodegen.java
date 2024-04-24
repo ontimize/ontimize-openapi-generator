@@ -280,7 +280,8 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		if (this.modelPackage != null && !this.modelPackage.isEmpty()
 				&& !this.modelPackage.equals(this.apiPackage)
 				&& !this.typeMapping.containsValue(openAPIType)
-				&& !this.importMapping.containsValue(openAPIType)) {
+				&& !this.importMapping.containsValue(openAPIType)
+				&& !this.schemaMapping.containsValue(openAPIType)) {
 
 			openAPIType = this.modelPackage + "." + openAPIType;
 		}
@@ -296,7 +297,8 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		if (this.modelPackage != null && !this.modelPackage.isEmpty()
 				&& !this.modelPackage.equals(this.apiPackage)
 				&& !this.typeMapping.containsValue(typeDeclaration)
-				&& !this.importMapping.containsValue(typeDeclaration)) {
+				&& !this.importMapping.containsValue(typeDeclaration)
+				&& !this.schemaMapping.containsValue(typeDeclaration)) {
 
 			typeDeclaration = this.modelPackage + "." + typeDeclaration;
 		}
@@ -414,26 +416,26 @@ public class ServerCodegen extends AbstractJavaCodegen {
 		this.importMapping.put("Void", "java.lang.Void");
 
 		/*
-		this.importMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
-		this.importMapping.put("EntityResult", "com.ontimize.db.EntityResult");
+		this.schemaMapping.put("AdvancedEntityResult", "com.ontimize.db.AdvancedEntityResult");
+		this.schemaMapping.put("EntityResult", "com.ontimize.db.EntityResult");
 		*/
-		this.importMapping.put("AdvancedEntityResult", "com.ontimize.jee.common.db.AdvancedEntityResult");
-		this.importMapping.put("EntityResult", "com.ontimize.jee.common.dto.EntityResult");
+		this.schemaMapping.put("AdvancedEntityResult", "com.ontimize.jee.common.db.AdvancedEntityResult");
+		this.schemaMapping.put("EntityResult", "com.ontimize.jee.common.dto.EntityResult");
 
-		this.importMapping.put("AdvancedQueryParameter", "com.ontimize.jee.server.rest.AdvancedQueryParameter");
-		this.importMapping.put("DeleteParameter", "com.ontimize.jee.server.rest.DeleteParameter");
-		this.importMapping.put("FileListParameter", "com.ontimize.jee.server.rest.FileListParameter");
-		this.importMapping.put("InsertParameter", "com.ontimize.jee.server.rest.InsertParameter");
-		this.importMapping.put("QueryParameter", "com.ontimize.jee.server.rest.QueryParameter");
-		this.importMapping.put("UpdateFileParameter", "com.ontimize.jee.server.rest.UpdateFileParameter");
-		this.importMapping.put("UpdateParameter", "com.ontimize.jee.server.rest.UpdateParameter");
+		this.schemaMapping.put("AdvancedQueryParameter", "com.ontimize.jee.server.rest.AdvancedQueryParameter");
+		this.schemaMapping.put("DeleteParameter", "com.ontimize.jee.server.rest.DeleteParameter");
+		this.schemaMapping.put("FileListParameter", "com.ontimize.jee.server.rest.FileListParameter");
+		this.schemaMapping.put("InsertParameter", "com.ontimize.jee.server.rest.InsertParameter");
+		this.schemaMapping.put("QueryParameter", "com.ontimize.jee.server.rest.QueryParameter");
+		this.schemaMapping.put("UpdateFileParameter", "com.ontimize.jee.server.rest.UpdateFileParameter");
+		this.schemaMapping.put("UpdateParameter", "com.ontimize.jee.server.rest.UpdateParameter");
 
-		this.importMapping.put("ExportParameter", "com.ontimize.jee.webclient.export.ExportParameter");
+		this.schemaMapping.put("ExportParameter", "com.ontimize.jee.webclient.export.ExportParameter");
 
-		this.importMapping.put("OFile", "com.ontimize.jee.server.dms.model.OFile");
-		this.importMapping.put("DocumentIdentifier", "com.ontimize.jee.common.services.dms.DocumentIdentifier");
+		this.schemaMapping.put("OFile", "com.ontimize.jee.server.dms.model.OFile");
+		this.schemaMapping.put("DocumentIdentifier", "com.ontimize.jee.common.services.dms.DocumentIdentifier");
 
-		this.importMapping.put("SQLOrder", "com.ontimize.db.SQLStatementBuilder.SQLOrder");
+		this.schemaMapping.put("SQLOrder", "com.ontimize.db.SQLStatementBuilder.SQLOrder");
 	}
 
 	/*

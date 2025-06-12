@@ -9,6 +9,7 @@
 
 
 ## [Unreleased]
+## [1.3.0] - 2025-06-12
 ### Changed 🛠️
 * **OpenAPI generator:**: Upgraded to 6.5.0 version.
 ## [1.2.0] - 2024-04-12
@@ -36,7 +37,8 @@
 * **Maven:** Convert to Maven plugin.
 
 
-[unreleased]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.2.0...HEAD
+[unreleased]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/ontimize/ontimize-openapi-generator/compare/1.0.3...1.0.4
